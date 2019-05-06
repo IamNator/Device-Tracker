@@ -1,0 +1,2830 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:sioc="http://rdfs.org/sioc/ns#"
+  xmlns:sioct="http://rdfs.org/sioc/types#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<head>
+  <meta charset="utf-8">
+  <title>How to Send Data to Web Server using Arduino and SIM900A GPRS/GSM Module</title>
+    <!--[if IE]><![endif]-->
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<![endif]--><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="https://circuitdigest.com/sites/default/files/favicon.png" type="image/png" />
+<meta name="description" content="Here we send data to the Sparkfun server using Arduino and GPRS. This is an IoT based project in which we will user GPRS, present on the GSM Module SIM900A board, to send some data to the web service on the internet." />
+<meta name="abstract" content="How to Send Data to Sparkfun Web Server using Arduino Uno and SIM900A GPRS/GSM Module" />
+<meta name="keywords" content="arduino and sim900a, gprs-gsm module, sending data to webserver, arduino uno, sparkfun web server, circuit, code" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<link rel="canonical" href="https://circuitdigest.com/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" />
+<link rel="shortlink" href="https://circuitdigest.com/node/946" />
+  <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Favicon -->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300italic,400,400italic,500,700,700italic,900" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:900" rel="stylesheet" type="text/css">
+<!--<script src="//platform-api.sharethis.com/js/sharethis.js#property=5b2e22d55a9f7800116e2c85&product=inline-share-buttons"></script>-->
+
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" media="all" />
+<link type="text/css" rel="stylesheet" href="//circuitdigest.com/sites/default/files/advagg_css/css__FPG2Sp4mCg82UHJ66mlmKg7CVx8izY0iWmRSBpl4EMs__5GewNklQGK_HE0AldCBJbolpdm2DQJC0YWz8eB8DoVI__Si4nJgwqcukDsAs0UYzgS7s-fYCWJKHDSMD2ZJhG910.css" media="all" />
+<style type="text/css" media="all">
+/* <![CDATA[ */
+#sliding-popup.sliding-popup-bottom{background:#373737;}#sliding-popup .popup-content #popup-text h1,#sliding-popup .popup-content #popup-text h2,#sliding-popup .popup-content #popup-text h3,#sliding-popup .popup-content #popup-text p{color:#fff !important;}
+
+/* ]]> */
+</style>
+   <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.jQuery||document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>");
+//--><!]]>
+</script>
+<script type="text/javascript" src="//circuitdigest.com/sites/default/files/advagg_js/js__UFd32amsXsa3hC6-ip4Uz0bPGDKRterc4YNkZs0Ahqo__gH5UBVJOO8LhUSg4MwMBJml5owGhpKspbXY3KdwP4Dw__Si4nJgwqcukDsAs0UYzgS7s-fYCWJKHDSMD2ZJhG910.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings,{basePath:"\/",pathPrefix:"",ajaxPageState:{theme:"admag",theme_token:"Tzh5tmk62-OIlTFj6Nx7wEHbp2v9Xk6ybH8P5J1M-Us",css:{"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/font-awesome\/4.4.0\/css\/font-awesome.min.css":1,"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/modules\/simplenews\/simplenews.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/custom_module\/custom_module.css":1,"sites\/all\/modules\/tb_megamenu\/css\/bootstrap.css":1,"sites\/all\/modules\/tb_megamenu\/css\/base.css":1,"sites\/all\/modules\/tb_megamenu\/css\/default.css":1,"sites\/all\/modules\/tb_megamenu\/css\/compatibility.css":1,"sites\/all\/modules\/eu_cookie_compliance\/css\/eu_cookie_compliance.css":1,"sites\/all\/themes\/admag\/plugins\/bootstrap\/css\/bootstrap.min.css":1,"sites\/all\/themes\/admag\/plugins\/font-awesome\/css\/font-awesome.min.css":1,"sites\/all\/themes\/admag\/css\/customizer.css":1,"sites\/all\/themes\/admag\/css\/style.css":1,"sites\/all\/themes\/admag\/css\/custom.css":1,"0":1},js:{"sites\/all\/modules\/custom_module\/welcome_ad.js":1,"sites\/all\/modules\/custom_module\/custom_change.js":1,"sites\/all\/modules\/image_caption\/image_caption.min.js":1,"sites\/all\/modules\/tb_megamenu\/js\/tb-megamenu-frontend.js":1,"sites\/all\/modules\/tb_megamenu\/js\/tb-megamenu-touch.js":1,"sites\/all\/modules\/google_analytics\/googleanalytics.js":1,"sites\/all\/themes\/admag\/plugins\/bootstrap\/js\/bootstrap.js":1,"sites\/all\/themes\/admag\/js\/plugins.js":1,"sites\/all\/themes\/admag\/js\/script.js":1,"sites\/all\/modules\/eu_cookie_compliance\/js\/eu_cookie_compliance.js":1,"\/\/code.jquery.com\/jquery-1.10.2.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/jquery_update\/replace\/ui\/external\/jquery.cookie.js":1,"sites\/all\/themes\/admag\/js\/modernizr.min.js":1}},urlIsAjaxTrusted:{"\/microcontroller-projects\/send-data-to-web-server-using-sim900a-arduino":true,"\/microcontroller-projects\/send-data-to-web-server-using-sim900a-arduino?destination=node\/946":true},eu_cookie_compliance:{popup_enabled:1,popup_agreed_enabled:0,popup_hide_agreed:0,popup_clicking_confirmation:1,popup_scrolling_confirmation:0,popup_html_info:"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003E\u003Cspan style=\u0022font-size:14px\u0022\u003E\u003Cspan style=\u0022font-family:arial,helvetica,sans-serif\u0022\u003EThis website uses cookies to improve user experience. By using the website you are giving your consent to set cookies. For more information, read our \u003Cu\u003E\u003Ca href=\u0022https:\/\/circuitdigest.com\/cookie-policy\u0022 rel=\u0022nofollow\u0022 target=\u0022_blank\u0022\u003Ecookie policy\u003C\/a\u003E\u003C\/u\u003E and \u003Cu\u003E\u003Ca href=\u0022http:\/\/circuitdigest.com\/privacy-policy\u0022 rel=\u0022nofollow\u0022 target=\u0022_blank\u0022\u003Eprivacy policy\u003C\/a\u003E\u003C\/u\u003E.\u003C\/span\u003E\u003C\/span\u003E\u003C\/p\u003E\n    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button\u0022\u003EOK, I Understand\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E",use_mobile_message:false,mobile_popup_html_info:"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n          \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button\u0022\u003EOK, I Understand\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n",mobile_breakpoint:"768",popup_html_agreed:"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content agreed\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Ch2\u003EThank you for accepting cookies\u003C\/h2\u003E\n\u003Cp\u003EYou can now hide this message or find out more about cookies.\u003C\/p\u003E\n    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022hide-popup-button\u0022\u003EHide\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E",popup_use_bare_css:false,popup_height:"auto",popup_width:"100%",popup_delay:1e3,popup_link:"\/cookie-policy",popup_link_new_window:1,popup_position:null,popup_language:"en",better_support_for_screen_readers:0,reload_page:0,domain:"",popup_eu_only_js:0,cookie_lifetime:"100",disagree_do_not_show_popup:0},googleanalytics:{trackOutbound:1,trackMailto:1,trackDownload:1,trackDownloadExtensions:"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"}});
+//--><!]]>
+</script>
+
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <!--Google DFP code-->
+  <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+	var mapping_leaderboard = googletag.sizeMapping().
+	addSize([992, 0], [728, 90]). //desktop
+	addSize([768, 0], [728, 90]). //tablet
+	addSize([320, 0], [[336, 42],[300, 50]]). //mobile
+	addSize([0, 0], [[728, 90], [1, 1]]). //other
+	build();
+
+    googletag.defineSlot('/21034905/boombox2', [300, 250], 'div-gpt-ad-1533626231783-1').addService(googletag.pubads());
+    googletag.defineSlot('/21034905/skyscraper_ad', [160, 600], 'div-gpt-ad-1490853271798-1').addService(googletag.pubads());
+    googletag.defineSlot('/21034905/welcome_ad', [640, 480], 'div-gpt-ad-1490853271798-2').addService(googletag.pubads());
+	googletag.defineSlot('/21034905/boombox_bottom', [300, 250], 'div-gpt-ad-1533626231783-0').addService(googletag.pubads());
+	googletag.defineSlot('/21034905/leaderboard', [728, 90], 'div-gpt-ad-1491291145553-2').defineSizeMapping(mapping_leaderboard).addService(googletag.pubads());
+	// frontrightbar  googletag.defineSlot('/21034905/content_top', [650, 90], 'div-gpt-ad-1519570476979-1').addService(googletag.pubads());
+	googletag.defineSlot('/21034905/Skyscraper_ad2', [160, 600], 'div-gpt-ad-1508834807558-0').addService(googletag.pubads());
+    googletag.defineSlot('/21034905/Welcome_Ad2', [640, 480], 'div-gpt-ad-1508834807558-1').addService(googletag.pubads());
+	googletag.defineSlot('/21034905/Leaderboard_Homepage_600x90', [600, 90], 'div-gpt-ad-1519570476979-0').addService(googletag.pubads());
+	googletag.defineSlot('/21034905/Billboard', [970, 250], 'div-gpt-ad-1522423126716-0').addService(googletag.pubads());
+	googletag.defineSlot('/21034905/Welcome_Ad3', [640, 480], 'div-gpt-ad-1530018046511-0').addService(googletag.pubads());
+    googletag.defineSlot('/21034905/Welcome_Ad4', [640, 480], 'div-gpt-ad-1530018046511-1').addService(googletag.pubads());
+  //  googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>
+<!--air push code-->
+<!--facebook like box js, separated from Block for Google site speed score-->
+<!-- PopAds.net Popunder Code for circuitdigest.com -->
+<!-- PopAds.net Popunder Code End -->
+<!-- Header Tag Code Insticator -->
+<!-- End Header Tag Code Insticator -->
+<!-- pushengage -->
+<script src="https://clientcdn.pushengage.com/core/1257.js"></script>
+<script>
+_pe.subscribe('NewURL');
+</script>
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '386163332166011');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=386163332166011&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<script src="//load.sumome.com/" data-sumo-site-id="4719271394b806c14a9f6b34b33c3c23804f96d4ed413ee0db3a1ef55031a5f5" async="async"></script>
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-946 node-type-microcontroller" >
+    <div id="main" class="header-style1">
+  
+
+
+  
+<style>@media (min-width:992px){ li[data-id="1839"] a{border-bottom: 3px solid red; padding-bottom: 11px !important;} }</style>
+<script>(function ($) {
+	       Drupal.behaviors.customToggler = {
+         attach: function(context, settings){
+  $('li[data-id="1717"] a').attr("target", "_blank");
+  $('#sidebar-tab-1 .more-link a').attr("target", "_blank");
+$('#sidebar-tab-3 .more-link a').attr("target", "_blank");
+$('#sidebar-tab-2 .more-link a').attr("target", "_blank");
+$('#block-views-ti-videos-block-13 .more-link a').attr("target", "_blank");
+$('#block-views-ti-videos-block-14 .more-link a').attr("target", "_blank");
+		 }
+		   };
+})(jQuery);</script>
+ <header class="header-wrapper clearfix">
+
+    <div class="header" id="header">
+      <div class="container">
+        <div class="mag-content">
+          <div class="row">
+            <div class="col-md-12">
+                          <!-- Mobile Menu Button -->
+            <a class="navbar-toggle collapsed" id="nav-button" href="#mobile-nav">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a><!-- .navbar-toggle -->
+
+            <!-- Main Nav Wrapper -->
+            <nav class="navbar mega-menu">
+              
+	      <h1 class="logo">
+		 <a href="/" title="Home" rel="home">
+            <img src="https://circuitdigest.com/sites/all/themes/gavias_synery/cd_logo.png" alt="Home"/>
+        </a></h1>
+		
+		
+                      
+              <!-- Navigation Menu -->
+                          <div class="navbar-collapse collapse">
+			     	      <div class="region region-main-menu">
+    <div id="block-tb-megamenu-main-menu" class="block block-tb-megamenu no-bg no-margin">
+
+    
+  <div class="content">
+    <div  class="tb-megamenu tb-megamenu-main-menu">
+      <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar tb-megamenu-button" type="button">
+      <i class="fa fa-reorder"></i>
+    </button>
+    <div class="nav-collapse  always-show">
+    <ul  class="tb-megamenu-nav nav level-0 items-10">
+  <li  data-id="1632" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega">
+  <a href="/news" >
+        
+    News          </a>
+  </li>
+
+<li  data-id="1133" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega">
+  <a href="/tech-articles" >
+        
+    Articles          </a>
+  </li>
+
+<li  data-id="1633" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega">
+  <a href="/tutorials" >
+        
+    Tutorials          </a>
+  </li>
+
+<li  data-id="1680" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="center" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega mega-align-center dropdown">
+  <a href="/electronics-projects"  class="dropdown-toggle">
+        
+    Projects          <span class="caret"></span>
+          </a>
+  <div  data-class="" data-width="650" style="width: 650px;" class="tb-megamenu-submenu dropdown-menu mega-dropdown-menu nav-child">
+  <div class="mega-dropdown-inner">
+    <div  class="tb-megamenu-row row-fluid">
+  <div  data-class="" data-width="3" data-hidewcol="0" id="tb-megamenu-column-1" class="tb-megamenu-column span3  mega-col-nav">
+  <div class="tb-megamenu-column-inner mega-inner clearfix">
+        <ul  class="tb-megamenu-subnav mega-nav level-1 items-4">
+  <li  data-id="866" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/555-timer-circuits" >
+        
+    555 Timer Circuits          </a>
+  </li>
+
+<li  data-id="1132" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/op-amp-circuits" >
+        
+    Op-amp Circuits          </a>
+  </li>
+
+<li  data-id="1682" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/audio-circuits" >
+        
+    Audio Circuits          </a>
+  </li>
+
+<li  data-id="851" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/electronic-circuits" >
+        
+    All Electronic Circuits          </a>
+  </li>
+</ul>
+  </div>
+</div>
+
+<div  data-class="" data-width="3" data-hidewcol="" id="tb-megamenu-column-2" class="tb-megamenu-column span3  mega-col-nav">
+  <div class="tb-megamenu-column-inner mega-inner clearfix">
+        <ul  class="tb-megamenu-subnav mega-nav level-1 items-4">
+  <li  data-id="1032" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/arduino-projects" >
+        
+    Arduino Projects          </a>
+  </li>
+
+<li  data-id="1456" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/simple-raspberry-pi-projects-for-beginners" >
+        
+    Raspberry Pi Projects          </a>
+  </li>
+
+<li  data-id="1681" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/msp430-projects" >
+        
+    MSP430 Projects          </a>
+  </li>
+
+<li  data-id="1491" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/esp8266-projects" >
+        
+    ESP8266 Projects          </a>
+  </li>
+</ul>
+  </div>
+</div>
+
+<div  data-class="" data-width="3" data-hidewcol="" id="tb-megamenu-column-3" class="tb-megamenu-column span3  mega-col-nav">
+  <div class="tb-megamenu-column-inner mega-inner clearfix">
+        <ul  class="tb-megamenu-subnav mega-nav level-1 items-4">
+  <li  data-id="1464" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/pic-microcontroller-projects" >
+        
+    PIC Projects          </a>
+  </li>
+
+<li  data-id="945" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/avr-microcontroller-projects" >
+        
+    AVR Projects          </a>
+  </li>
+
+<li  data-id="1033" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/8051-microcontroller-projects" >
+        
+    8051 Projects          </a>
+  </li>
+
+<li  data-id="1461" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="http://circuitdigest.com/internet-of-things-iot-projects"  title="IoT Projects">
+        
+    IoT Projects          </a>
+  </li>
+</ul>
+  </div>
+</div>
+
+<div  data-class="" data-width="3" data-hidewcol="" id="tb-megamenu-column-4" class="tb-megamenu-column span3  mega-col-nav">
+  <div class="tb-megamenu-column-inner mega-inner clearfix">
+        <ul  class="tb-megamenu-subnav mega-nav level-1 items-3">
+  <li  data-id="1485" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/diy-pcb-projects" >
+        
+    PCB Projects          </a>
+  </li>
+
+<li  data-id="1492" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/arduino-esp8266-projects"  title="Arduino ESP8266 Projects">
+        
+    Arduino ESP8266 Projects          </a>
+  </li>
+
+<li  data-id="944" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="center" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega mega-align-center">
+  <a href="/microcontroller-projects"  title="All Microcontroller Projects">
+        
+    All Microcontroller Projects          </a>
+  </li>
+</ul>
+  </div>
+</div>
+</div>
+  </div>
+</div>
+</li>
+
+<li  data-id="1839" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega">
+  <a href="/ti-training" >
+        
+    TI Training          </a>
+  </li>
+
+<li  data-id="1454" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega">
+  <a href="/forums" >
+        
+    Forum          </a>
+  </li>
+
+<li  data-id="874" data-level="1" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-1 mega dropdown">
+  <a href="/contact"  class="dropdown-toggle" title="Contact">
+        
+    Contact          <span class="caret"></span>
+          </a>
+  <div  data-class="" data-width="" class="tb-megamenu-submenu dropdown-menu mega-dropdown-menu nav-child">
+  <div class="mega-dropdown-inner">
+    <div  class="tb-megamenu-row row-fluid">
+  <div  data-class="" data-width="12" data-hidewcol="0" id="tb-megamenu-column-5" class="tb-megamenu-column span12  mega-col-nav">
+  <div class="tb-megamenu-column-inner mega-inner clearfix">
+        <ul  class="tb-megamenu-subnav mega-nav level-1 items-1">
+  <li  data-id="1448" data-level="2" data-type="menu_item" data-class="" data-xicon="" data-caption="" data-alignsub="" data-group="0" data-hidewcol="0" data-hidesub="0" class="tb-megamenu-item level-2 mega">
+  <a href="/advertise" >
+        
+    Advertise          </a>
+  </li>
+</ul>
+  </div>
+</div>
+</div>
+  </div>
+</div>
+</li>
+</ul>
+      </div>
+  </div>
+  </div>
+</div>
+  </div>
+ 
+            </div><!-- .navbar-collapse -->              <!-- End Navigation Menu -->
+
+              <div class="header-right">
+                <div class="social-icons">
+                  <a target="_blank" href="https://www.facebook.com/circuitdigest/" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook fa-lg"></i></a>
+                  <a target="_blank" href="https://twitter.com/CircuitDigest" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter fa-lg"></i></a>
+                  <a target="_blank" href="https://www.youtube.com/channel/UCy3CUAIYgZdAOG9k3IPdLmw" data-toggle="tooltip" data-placement="bottom" title="YouTube"><i class="fa fa-youtube fa-lg"></i></a>
+                  <!-- Only for Fixed Sidebar Layout -->
+                  <a href="#" class="fixed-button navbar-toggle" id="fixed-button">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </a><!-- .fixed-button -->
+                </div><!-- .social-icons -->
+              </div><!-- .header-right -->
+
+            </nav><!-- .navbar -->
+
+            <div id="sb-search" class="sb-search">
+ <form method="post" id="search-block-form" accept-charset="UTF-8">
+                <input class="sb-search-input" placeholder="Enter your search text..." type="text" value="" name="search" id="search" onKeydown="Javascript: if (event.keyCode==13) {location.href='/search/node/'+ document.getElementById('search').value; return false;}">
+                <input class="sb-search-submit" type="button" value="" onclick="return location.href='/search/node/'+ document.getElementById('search').value;">
+
+                <span class="sb-icon-search fa fa-search" data-toggle="tooltip" data-placement="bottom" title="Search"></span>
+              </form>
+            </div><!-- .sb-search -->            </div>
+          </div>
+        </div><!-- .mag-content -->
+      </div><!-- .container -->
+    </div><!-- .header -->
+    	
+        	
+	
+  </header><!-- .header-wrapper -->
+  
+  <div class="container main-wrapper">
+    
+    <!-- End Main Banner -->
+    	<div class="mag-content clearfix">
+  <div class="row">
+    <div class="col-md-12">
+	<!-- hide in mobile- see custom.css- to serve adsense on mobile and dfp on desktop -->
+      <div class="ad728-wrapper">
+<center><!-- /21034905/Billboard -->
+<!-- /21034905/Billboard -->
+<div id='div-gpt-ad-1522423126716-0' style='height:250px; width:970px;'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1522423126716-0'); });
+</script>
+</div></center>
+      </div>
+	  <!-- hide in desktop see custom.css -->
+<div class="ad728-wrapper-mob"> 
+
+</div>
+	  
+    </div>
+  </div>
+</div>
+	<!-- End Main Banner -->
+         <div class="tabs"></div>                                    <div class="main-content mag-content clearfix">	
+						    <!--  <div class="row blog-content" data-stickyparent> -->
+	   <div class="row blog-content">
+	 	 
+			<!--<div class="col-md-8" data-stickycolumn>--> <div class="col-md-8">        
+             <article class="post-wrapper clearfix">
+ 
+   <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+    
+  <div class="content">
+    
+
+<header class="post-header"> 
+              <h1 class="post-title">
+               <a href="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino">How to Send Data to Web Server using Arduino and SIM900A GPRS/GSM Module</a>
+              </h1><!-- .post-title -->
+			  
+              <span class="category bgcolor2">
+			                <a href="https://circuitdigest.com/arduino-projects">Arduino</a>              </span>
+	                    <p class="simple-share">
+                <span>By<a href="page_author.html"><b style="margin-left:-3px;"><span rel="sioc:has_creator"><a href="/users/saddam" title="View user profile." class="username" xml:lang="" about="/users/saddam" typeof="sioc:UserAccount" property="foaf:name" datatype="">Saddam</a></span></b></a></span>
+                <span><span class="article-date"><i class="fa fa-clock-o"></i>Jun 28, 2017</span></span>
+                <!-- <span><i class="fa fa-eye"></i> </span> -->
+              
+				<a  class="comments-count" href="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino#comments">7</a>
+              </p>
+
+			      			  
+              <figure class="image-overlay">
+
+		<!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-field-project-image field-type-image field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even"><img class="caption" typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/projectimage_mic/Arduino-SIM900A-GPRS_0.jpg" width="650" height="425" alt="How to Send Data to Web Server using Arduino and SIM900A GPRS/GSM Module" title="How to Send Data to Web Server using Arduino and SIM900A GPRS/GSM Module" /></div>
+      </div>
+</div>
+		
+
+              </figure>
+            </header><!-- .post-header -->
+
+            <div class="post-content clearfix">
+             				 <!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-field-ad-code-top field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even"><center><div style="margin-bottom: 5px; margin-right: 25px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- front_rightbar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4104019148699772"
+     data-ad-slot="9331923841"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> </div></center></div>
+      </div>
+</div>
+<!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-body field-type-text-with-summary field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p class="rtejustify">Today we are here with an interesting project in which we will <strong>Send Data to the SparkFun server using Arduino and GPRS</strong>. This is an IoT based project in which we will use GPRS, present on the <strong>GSM Module SIM900A</strong> board, to send some data to the web service on the internet.</p><center><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- CM_CD_BTF_WC1_Link -->
+<ins class="adsbygoogle"
+ style="display:block"
+ data-ad-client="ca-pub-4104019148699772"
+ data-ad-slot="5113220255"
+ data-ad-format="link"
+ data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+<p class="rtejustify">In this project, we will simply enter some text using 4x4 Alphanumeric keypad and send it to SparkFun website using <strong>Arduino and GPRS</strong>, from where you can see that data from anywhere in the word through internet. Here we have also attached a 16x2 LCD to see the data locally. This data sending technique is very useful in IoT projects where you want to monitor things from anywhere in the world like <a href="https://circuitdigest.com/microcontroller-projects/iot-temperature-humidity-monitoring-using-arduino">Monitoring Temperature &amp; Humidity</a>, <a href="https://circuitdigest.com/microcontroller-projects/arduino-vehicle-tracker-on-google-maps-using-esp8266">Monitor Vehicle Location</a>, <a href="https://circuitdigest.com/microcontroller-projects/iot-heartbeat-monitoring-using-arduino">Monitor Heart Beat</a>, <a href="https://circuitdigest.com/microcontroller-projects/iot-air-pollution-monitoring-using-arduino">Monitor Air pollution level</a> etc.</p>
+<p class="rtejustify"> </p>
+<h3 class="rtejustify">Components Required:</h3>
+<ol><li class="rtejustify">Arduino</li>
+<li class="rtejustify">GSM Module SIM900A</li>
+<li class="rtejustify">16x2 LCD</li>
+<li class="rtejustify">4x4 Matrix Keypad</li>
+<li class="rtejustify">Breadboard or PCB</li>
+<li class="rtejustify">Connecting jumper wire</li>
+<li class="rtejustify">Power supply 12v</li>
+<li class="rtejustify">SIM Card</li>
+</ol><p class="rtejustify"> </p>
+<h3 class="rtejustify">Using GPRS in GSM Module:</h3>
+<p class="rtejustify">Here we have used a normal GSM Module with a SIM card for GPRS connection. In this project, GPRS is responsible for sending data to the Sparkfun server. Previously we have done many projects where we have used <a href="https://circuitdigest.com/esp8266-projects">Wi-Fi module ESP8266</a> to send data to different servers over internet. But this time we have used GPRS. Check the detailed Video at the end of this tutorial.</p>
+<p class="rtejustify"> </p>
+<p class="rtejustify"><strong>GPRS stands for General Packet Radio Services</strong> which is a packet based wireless communication service that works with data rate of 56-114kbps and provides a connection to the internet.</p>
+<p class="rtejustify">For GPRS, we do not need to buy any special module or hardware because GSM already has GPRS facilities inbuilt. We only need to access it by using the same method or AT commands that we used for <a href="https://circuitdigest.com/search/node/gsm%20arduino">GSM interfacing in our previous projects</a>. There are many AT commands already mentioned in the datasheet of SIMCOM SIM900A GSM module.</p>
+<p class="rtejustify"><img alt="GSM-Module-SIM900A" src="/sites/default/files/inlineimages/GSM-Module-SIM900A.jpg" style="height:328px; width:500px" /></p>
+<p class="rtejustify">Now for sending data to server by using GPRS, first we need to initialize GSM module.</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Boombox_bottom -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-4104019148699772"
+     data-ad-slot="2070962646"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<p class="rtejustify"><strong>Commands for initializing GSM:</strong></p>
+<pre class="rtejustify">
+AT :- this command is used to check whether GSM module is responding or not.
+
+AT+CPIN? :- this command is used to check whether SIM card is inserted in GSM Module or not.
+ATE0 :- is used for disabling echo
+
+ATE1 :- is used for enabling echo</pre><p class="rtejustify"> </p>
+<p class="rtejustify"><strong>Commands for initializing GPRS internet connection:</strong></p>
+<pre class="rtejustify">
+AT+CIPSHUT :- to close TCP Port Explicitly means disconnect connection if any
+
+AT+CGATT? :- Checking SIM card has internet connection or not
+
+AT+CSTT = "APN","userName","Pass" :- connect to internet
+
+(ex; AT+CSTT="airtelgprs.com","","")
+
+AT+CIICR :- bring up with the wireless network. Checking SIM card has data pack or balance
+
+AT+CIFSR :- get IP (sometimes without this command GSM do not work so use this command)
+
+AT+CIPSTART = ”TCP”,”SERVER IP”,”PORT” :- is used for creating TCP connection with the server that we provide in place of SERVER IP
+
+AT+CIPSEND :- this command is used for sending data to the server. After input, this command server asks for data.</pre><p class="rtejustify"> </p>
+<p class="rtejustify">After inputting the data we send 26 to the server. If everything will be fine then data will be posted successfully to the server and <strong>SparkFun server responds with a pass or fail string</strong>.</p>
+<p class="rtejustify"><img alt="sparkfun logs data sent using GPRS GSM and arduino" src="/sites/default/files/inlineimages/sparkfun-logs-data-sent-using-GPRS-GSM-and-arduino.png" style="height:267px; width:650px" /></p>
+<p class="rtejustify"><img alt="send data to sparkfun using GPRS GSM and arduino" src="/sites/default/files/inlineimages/send-data-to-sparkfun-using-GPRS-GSM-and-arduino.png" style="height:368px; width:495px" /></p>
+<p class="rtejustify"> </p>
+<h3 class="rtejustify">Working Explanation:</h3>
+<p class="rtejustify">Process of <strong>Sending Data from GPRS of GSM Module</strong> is easy. Here in this project, we are sending some string or words to the server by typing using keypad. Same string or word will appear over the LCD, then press D/OK to send the input string to the server. Here we have created an Alphanumeric Keypad for inputting the characters or numeric values to Arduino or LCD. C/clear is programmed for backspace.</p>
+<p class="rtejustify"><img alt="send data to webserver using GPRS GSM and arduino block diagram" src="/sites/default/files/inlineimages/send-data-to-webserver-using-GPRS-GSM-and-arduino-block-diagram.png" style="height:245px; width:600px" /></p>
+<p class="rtejustify"><img alt="send data to webserver using GPRS GSM and arduino" src="/sites/default/files/inlineimages/send-data-to-webserver-using-GPRS-GSM-and-arduino.jpg" style="height:442px; width:600px" /></p>
+<p class="rtejustify"> </p>
+<p class="rtejustify">Alphanumeric is a method to enter numbers and alphabets both by using the same 4x4 matrix Kepad keypad. Here we have <a href="https://circuitdigest.com/microcontroller-projects/keypad-interfacing-with-arduino-uno">coded the same 4x4 keypad for Arduino</a> to accept alphabets also. Check the full code at the end of the article.</p>
+<p class="rtejustify"><img alt="4x4 Keypad matrix" src="/sites/default/files/inlineimages/keypad5.jpg" style="height:325px; width:325px" /><img alt="4x4 alphanumeric keypad" src="/sites/default/files/inlineimages/4x4-alphanumeric-keypad.jpg" style="height:294px; width:325px" /></p>
+<p class="rtejustify"> </p><center><style type="text/css">
+.CM_CD_BTF_WC2 { display:inline-block; width: 300px; height: 250px; }
+@media (max-width:749px) { .CM_CD_BTF_WC2 { width: 300px; height: 250px; } }
+@media (min-width:750px) { .CM_CD_BTF_WC2 { width: 728px; height: 250px; } }
+</style>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- CM_CD_BTF_WC2 -->
+<ins class="adsbygoogle CM_CD_BTF_WC2"
+ data-ad-client="ca-pub-4104019148699772"
+ data-ad-slot="6234730231"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></center>
+<h3 class="rtejustify">Circuit Explanation:</h3>
+<p class="rtejustify"> For <strong>Sending Data to SparkFun Server</strong>, we need to interface Keypad and GSM module to Arduino. In this project we have used Arduino to taking input string from the keypad and sending commands to GSM/GPRS module. <strong>GSM/GPRS</strong> is used to communicate with the Internet for sending data to the Sparkfun server. GSM Module’s Rx and Tx pin is directly connected with Arduino's pin D3 and D2 respectively (Ground of Arduino and GSM must be connected with each other). A <a href="https://circuitdigest.com/article/16x2-lcd-display-module-pinout-datasheet">16x2 LCD</a> is used for displaying input strings and showing welcome message and data sending status as well.  Pins of this 16x2 LCD namely Rs, en, d4, d5, d6, and d7 are connected with pin number 14, 15, 16, 17, 18 and 19 of Arduino respectively. A <strong>4x4 keypad</strong> is used for input string to Arduino and its  Row pins R1, R2, R3, R4 are directly linked to pin number 11,10, 9, 8 of Arduino and Colum pin of keypad C1, C2, C3 are linked with pin number 7, 6, 5,4 of Arduino.</p>
+<p class="rtejustify">Here we have also connected GSM Tx pin to Tx of Arduino to get response data over the serial monitor.</p>
+<p class="rtejustify"><a href="/fullimage?i=circuitdiagram_mic/send-data-to-webserver-using-GPRS-GSM-and-arduino-circuit-diagram.png" target="_blank"><img alt="send data to webserver using GPRS GSM and arduino circuit diagram" src="/sites/default/files/circuitdiagram_mic/send-data-to-webserver-using-GPRS-GSM-and-arduino-circuit-diagram.png" style="height:306px; width:650px" title="send data to webserver using GPRS GSM and arduino circuit diagram" /></a></p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Link_ad_Circuit -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:200px;height:90px"
+     data-ad-client="ca-pub-4104019148699772"
+     data-ad-slot="1263995046"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<p class="rtejustify"> </p>
+<h3 class="rtejustify">Programming Explanation:</h3>
+<p class="rtejustify">Programming part of this project is a little complex for beginners but by doing a little bit practice and paying attention you can understand it. In this code, we have used <a href="http://playground.arduino.cc/Code/Keypad" rel="nofollow" target="_blank">keypad library</a> for interfacing simple keypad for entering numbers. And for entering alphabets we have used the same library and keypad but used one more function to make it alphanumeric keypad. Means we have made every key multi-functioning and can enter all the characters and integers by using only 10 keys.</p>
+<p class="rtejustify">If we press key 2 (ABC2), it will show ‘A’ and if we press it again then it will replace ‘A’ with ‘B’ and if again we press it then it will show ‘C’ at the same place in LCD. If we wait for some time after pressing a key, the cursor will automatically move to next position in LCD. Now we can enter next char or number. And same procedure is applied to other keys. It works same as keypad in old mobile phones.</p>
+<p class="rtejustify"> </p>
+<p class="rtejustify">Below we have included <em>Keypad.h</em> library and define array matrix for the keys:</p>
+<pre>
+#include &lt;Keypad.h&gt;               // keypad library for interfacing keypad
+const byte ROWS = 4; //four rows
+const byte COLS = 4; //four columns
+int x=0;
+int y=0;
+int n=0;
+int minValue=0;
+int maxValue=0;
+char keyPress=0;
+int keyPressTime=100;
+String msg="";
+
+char hexaKeys[ROWS][COLS] = 
+{
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+byte rowPins[ROWS] = {11, 10, 9, 8}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {7, 6, 5, 4}; //connect to the column pinouts of the keypad</pre><p class="rtejustify"> </p>
+<p class="rtejustify">And given <em>void getkey</em> function is used for input alphabets</p>
+<pre class="rtejustify">
+void getkey(int minValue, int maxValue, char keyPress)
+{
+   int ch=minValue;
+   int pressed=1;
+   char key=keyPress;
+   lcd.noBlink();
+   for(int i=0;i&lt;keyPressTime;i++)
+   {     
+      if(key==keyPress)
+      {
+         lcd.setCursor(x,y);
+         lcd.print(alpha[ch]);
+         ch++;
+         if(ch&gt;maxValue)
+         ch=minValue;
+         i=0;   
+      }
+      ....
+      .....</pre><p class="rtejustify"> </p>
+<p class="rtejustify">Below void <em>initGSM()</em> and <em>void initGPRS()</em> functions are used for initializing GSM module and GPRS</p>
+<pre class="rtejustify">
+void initGSM()
+{
+  connectGSM("AT","OK");
+  connectGSM("ATE1","OK");
+  connectGSM("AT+CPIN?","READY");
+}
+void initGPRS()
+{
+  connectGSM("AT+CIPSHUT","OK");
+  connectGSM("AT+CGATT=1","OK");
+  connectGSM("AT+CSTT=\"airtelgprs.com\",\"\",\"\"","OK");
+  connectGSM("AT+CIICR","OK");
+  delay(1000);
+  Serial1.println("AT+CIFSR");
+  delay(1000);
+}</pre><p class="rtejustify"> </p>
+<p class="rtejustify">Below part of the code is used to create URL and send the data to server via URL.</p>
+<pre class="rtejustify">
+else if(key == 'D')
+    {
+      lcd.clear();
+      lcd.noBlink();
+      lcd.print("Sending Data");
+      lcd.setCursor(0,1);
+      lcd.print("To Server");
+      url="GET /input/";
+      url+=publicKey;
+      url+="?private_key=";
+      url+=pvtKey;
+      url+="&amp;log=";
+      url+=msg;
+      url+=" HTTP/1.0\r\n\r\n";
+      String svr=Start+","+ip+","+port;
+      delay(1000);
+      connectGSM(svr,"CONNECT");
+      delay(1000);
+      int len = url.length();
+      String str="";
+      str=SendCmd+len;
+      sendToServer(str);</pre><p class="rtejustify"> </p>
+<p class="rtejustify">So this is how we can send any data, on the SparkFun server through GPRS, to be monitored from anywhere in the world. For creating SparkFun page where we can view the sent data over the internet; watch the <strong>below video</strong>.</p>
+</p><style type="text/css">
+.CM_Circuitdigest_EOP { display:inline-block; width: 300px; height: 250px; }
+@media (max-width:749px) { .CM_Circuitdigest_EOP { width: 300px; height: 600px; } }
+@media (min-width:750px) { .CM_Circuitdigest_EOP { width: 728px; height: 250px; } }
+</style>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- CM_Circuitdigest_BTF_EOP -->
+<ins class="adsbygoogle CM_Circuitdigest_EOP"
+data-ad-client="ca-pub-3737030722290655"
+data-ad-slot="CM_Circuitdigest_BTF_EOP"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+      </div>
+</div>
+<!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-field-ad-code field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even"><div style="margin-bottom:5px;"></div></div>
+      </div>
+</div>
+<!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-field-code field-type-text-long field-label-above">
+    <!--removed colon, only change, copied from core field module-->
+    <div class="field-label">Code<!--:&nbsp;--></div>
+    <div class="field-items">
+          <div class="field-item even"><p>#include &lt;SoftwareSerial.h&gt;  // serial software library for interfacing gsm module<br />
+SoftwareSerial Serial1(2, 3); // RX, TX  // connect gsm Tx at D2 and Rx at D3</p>
+<p>#include&lt;LiquidCrystal.h&gt;     // LCD library for interfacing LCD<br />
+LiquidCrystal lcd(14,15,16,17,18,19);   // connect rs,en,d4,d5,d6,d7 respectevely</p>
+<p>String pvtKey="wY9DPG5vzpH99KNrNkx2";     // private key for posting data to sparkfun<br />
+String publicKey="w5nXxM6rp0tww5YVYg3G";  // public key for open page of sparkfun <br />
+String url="";<br />
+String ip="\"data.sparkfun.com\"";        // sparkfun server ip or url<br />
+int port=80;                              // sparkfun server port</p>
+<p>String SendCmd="AT+CIPSEND=";           // sending number of byte command<br />
+String Start="AT+CIPSTART=\"TCP\"";     // TCPIP start command </p>
+<p>// strings and variables<br />
+//String msg="";<br />
+String instr="";<br />
+String str_sms="";<br />
+String str1="";<br />
+int i=0,temp=0;</p>
+<p>#include &lt;Keypad.h&gt;               // keypad library for interfacing keypad<br />
+const byte ROWS = 4; //four rows<br />
+const byte COLS = 4; //four columns<br />
+int x=0;<br />
+int y=0;<br />
+int n=0;<br />
+int minValue=0;<br />
+int maxValue=0;<br />
+char keyPress=0;<br />
+int keyPressTime=100;<br />
+String msg="";</p>
+<p>char hexaKeys[ROWS][COLS] = <br />
+{<br />
+  {'1','2','3','A'},<br />
+  {'4','5','6','B'},<br />
+  {'7','8','9','C'},<br />
+  {'*','0','#','D'}<br />
+};</p>
+<p>byte rowPins[ROWS] = {11, 10, 9, 8}; //connect to the row pinouts of the keypad<br />
+byte colPins[COLS] = {7, 6, 5, 4}; //connect to the column pinouts of the keypad</p>
+<p>Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); </p>
+<p>String alpha="1!@_$%?ABC2DEF3GHI4JKL5MNO6PQRS7TUV8WXYZ9* 0#"; </p>
+<p>void setup() <br />
+{<br />
+  Serial1.begin(9600);    // init serial1 for GSM<br />
+  lcd.begin(16,2);        // init LCD<br />
+  lcd.print("Sending Data  ");<br />
+  lcd.setCursor(0,1);<br />
+  lcd.print("to Server");<br />
+  delay(2000);<br />
+  lcd.clear();<br />
+  lcd.print("Circuit Digest");<br />
+  lcd.setCursor(0,1);<br />
+  lcd.print("Saddam Khan");<br />
+  delay(2000);<br />
+  lcd.clear();<br />
+  lcd.print("Initializing GSM");<br />
+  initGSM();      // init GSM module<br />
+  lcd.clear();<br />
+  lcd.print("Initializing GPRS");<br />
+  initGPRS();     // init GPRS in GSM Module<br />
+  lcd.clear();<br />
+  lcd.print("System Ready");<br />
+  delay(2000);<br />
+}</p>
+<p>void loop()<br />
+{<br />
+  int n=0;<br />
+  lcd.clear();<br />
+  lcd.noCursor();<br />
+  while(1)<br />
+  {<br />
+    lcd.cursor();<br />
+    char key = customKeypad.getKey();<br />
+    if(key=='1')<br />
+      getkey(0, 6, key);</p>
+<p>     if(key=='2')<br />
+      getkey(7, 10, key);</p>
+<p>     else if(key=='3')<br />
+      getkey(11, 14, key); </p>
+<p>     else if(key=='4')<br />
+      getkey(15, 18, key);</p>
+<p>    else if(key=='5')<br />
+      getkey(19, 22, key);</p>
+<p>    else if(key=='6')<br />
+      getkey(23, 26, key);</p>
+<p>    else if(key=='7')<br />
+      getkey(27, 31, key);</p>
+<p>    else if(key=='8')<br />
+      getkey(32,35, key);</p>
+<p>    else if(key=='9')<br />
+      getkey(36, 40, key);</p>
+<p>    else if(key=='*')<br />
+      getkey(41, 41, key);</p>
+<p>    else if(key=='0')<br />
+      getkey(42, 43, key);</p>
+<p>    else if(key=='#')<br />
+      getkey(44, 44, key);<br />
+      <br />
+    else if(key == 'C')<br />
+    {<br />
+         x--;<br />
+         lcd.setCursor(x,y);<br />
+         lcd.print(" ");<br />
+         n--;<br />
+         msg[n]=' '; <br />
+         lcd.setCursor(x,y);<br />
+    }</p>
+<p>    else if(key == 'D')<br />
+    {<br />
+      lcd.clear();<br />
+      lcd.noBlink();<br />
+      lcd.print("Sending Data");<br />
+      lcd.setCursor(0,1);<br />
+      lcd.print("To Server");<br />
+      url="GET /input/";<br />
+      url+=publicKey;<br />
+      url+="?private_key=";<br />
+      url+=pvtKey;<br />
+      url+="&amp;log=";<br />
+      url+=msg;<br />
+      url+=" HTTP/1.0\r\n\r\n";<br />
+      String svr=Start+","+ip+","+port;<br />
+      delay(1000);<br />
+      connectGSM(svr,"CONNECT");<br />
+      delay(1000);<br />
+      int len = url.length();<br />
+      String str="";<br />
+      str=SendCmd+len;<br />
+      sendToServer(str);<br />
+       Serial1.print(url);<br />
+      delay(1000);<br />
+      Serial1.write(0x1A);<br />
+      delay(1000);<br />
+      lcd.clear();<br />
+      lcd_status();<br />
+       //  clearmsg();<br />
+       n=0;<br />
+       i=0;<br />
+       x=0;<br />
+       y=0;<br />
+       msg="";<br />
+    }<br />
+  }<br />
+}</p>
+<p>void getkey(int minValue, int maxValue, char keyPress)<br />
+{<br />
+   int ch=minValue;<br />
+   int pressed=1;<br />
+   char key=keyPress;<br />
+   lcd.noBlink();<br />
+   for(int i=0;i&lt;keyPressTime;i++)<br />
+   {     <br />
+      if(key==keyPress)<br />
+      {<br />
+         lcd.setCursor(x,y);<br />
+         lcd.print(alpha[ch]);<br />
+         ch++;<br />
+         if(ch&gt;maxValue)<br />
+         ch=minValue;<br />
+         i=0;   <br />
+      }<br />
+      key=customKeypad.getKey();<br />
+      delay(10);<br />
+    }</p>
+<p>     if(pressed)<br />
+     {  <br />
+        x++;<br />
+        msg+=alpha[ch-1];<br />
+        n++;<br />
+        if(x&gt;15)<br />
+        {<br />
+          x=0;<br />
+          y=1;<br />
+        }<br />
+     }<br />
+    pressed=0;<br />
+    lcd.blink();<br />
+}</p>
+<p>void lcd_status()<br />
+{<br />
+  lcd.clear();<br />
+  lcd.print("Data Sent to");<br />
+  lcd.setCursor(0,1);<br />
+  lcd.print("Server");<br />
+  delay(2000);<br />
+  lcd.clear();<br />
+}</p>
+<p>void sendToServer(String str)<br />
+{<br />
+  Serial1.println(str);<br />
+  delay(1000);<br />
+}</p>
+<p>void initGSM()<br />
+{<br />
+  connectGSM("AT","OK");<br />
+  connectGSM("ATE1","OK");<br />
+  connectGSM("AT+CPIN?","READY");<br />
+}<br />
+void initGPRS()<br />
+{<br />
+  connectGSM("AT+CIPSHUT","OK");<br />
+  connectGSM("AT+CGATT=1","OK");<br />
+  connectGSM("AT+CSTT=\"airtelgprs.com\",\"\",\"\"","OK");<br />
+  connectGSM("AT+CIICR","OK");<br />
+  delay(1000);<br />
+  Serial1.println("AT+CIFSR");<br />
+  delay(1000);<br />
+}<br />
+void connectGSM (String cmd, char *res)<br />
+{<br />
+  while(1)<br />
+  {<br />
+    Serial.println(cmd);<br />
+    Serial1.println(cmd);<br />
+    delay(500);<br />
+    while(Serial1.available()&gt;0)<br />
+    {<br />
+      if(Serial1.find(res))<br />
+      {<br />
+        delay(1000);<br />
+        return;<br />
+      }<br />
+    }<br />
+    delay(1000);<br />
+   }<br />
+ }</p>
+<p>
+/*<br />
+ Public URL<br /><a href="http://data.sparkfun.com/streams/w5nXxM6rp0tww5YVYg3G" rel="nofollow" target="_blank">http://data.sparkfun.com/streams/w5nXxM6rp0tww5YVYg3G</a><br />
+Public Key</p>
+<p>w5nXxM6rp0tww5YVYg3G<br />
+Private Key</p>
+<p>wY9DPG5vzpH99KNrNkx2<br />
+Keep this key secret, and in a safe place.  You will not be able to retrieve it.</p>
+<p>Delete Key</p>
+<p>xxxxxxxxxxxxx<br />
+This key can only be used once.  Keep this key secret, and in a safe place.  You will not be able to retrieve it.</p>
+<p>Logging using query string parameters<br />
+Format:<br /><a href="http://data.sparkfun.com/input/[publicKey]?private_key=[privateKey]&amp;log=[value]" rel="nofollow" target="_blank">http://data.sparkfun.com/input/[publicKey]?private_key=[privateKey]&amp;log=[value]</a><br />
+Example:<br /><a href="http://data.sparkfun.com/input/w5nXxM6rp0tww5YVYg3G?private_key=wY9DPG5vzpH99KNrNkx2&amp;log=22.21" rel="nofollow" target="_blank">http://data.sparkfun.com/input/w5nXxM6rp0tww5YVYg3G?private_key=wY9DPG5vzpH99KNrNkx2&amp;log=22.21</a></p>
+<p>*/</p>
+</div>
+      </div>
+</div>
+<!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-field-video field-type-text-long field-label-above">
+    <!--removed colon, only change, copied from core field module-->
+    <div class="field-label">Video<!--:&nbsp;--></div>
+    <div class="field-items">
+          <div class="field-item even"><p><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/Ym7c8zdz1IQ" width="560"></iframe></p>
+</div>
+      </div>
+</div>
+ <?php// print render($content['comments']); ?>
+				 
+				 <ul class="tags-widget clearfix">
+				 <span class="tagb">TAGS  </span>
+				     					<li><a href="/tags/arduino" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">arduino</a></li>
+					 					<li><a href="/tags/arduino-uno" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">arduino uno</a></li>
+					 					<li><a href="/tags/gsm" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">GSM</a></li>
+					 					<li><a href="/tags/iot" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">IoT</a></li>
+					 					<li><a href="/tags/iot-project" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">IoT Project</a></li>
+					 					<li><a href="/tags/4x4-keypad" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">4x4 keypad</a></li>
+					 					<li><a href="/tags/gprs" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">GPRS</a></li>
+					 					<li><a href="/tags/sim900a" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">SIM900A</a></li>
+					 					<li></li>
+					 					<li></li>
+					 					<li></li>
+					 				 </ul>
+				 <!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-field-ad-code-bottom field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even"><!--  removed matched content --></div>
+      </div>
+</div>
+            </div><!-- .post-content -->
+			
+
+  </div>
+</div>
+<div id="block-views-related-content-block" class="block block-views">
+
+    <h2><h3 class="block-title"><span>Related Content</span></h3></h2>
+  
+  <div class="content">
+    <div class="view view-related-content view-id-related_content view-display-id-block view-dom-id-b2b477aa5a6d1f71eb93e9e76cf812e3">
+        
+  
+  
+      <div class="view-content">
+        <div class="">
+      <div class="views-row views-row-first">
+      <div class="views-col col-sm-6 col-md-6 col-lg-3 views-column-first">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/diy-location-tracker-using-gsm-sim800-and-arduino"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/DIY-Location-Tracker-using-GSM-SIM800-and-Arduino.jpg?itok=BKPLkRZA" width="275" height="160" alt="DIY Location Tracker using GSM SIM800 and Arduino" title="DIY Location Tracker using GSM SIM800 and Arduino" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/diy-location-tracker-using-gsm-sim800-and-arduino">DIY Location Tracker using GSM SIM800 and Arduino</a></span>  </div>    </div>
+      <div class="views-col col-sm-6 col-md-6 col-lg-3">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/rs485-modbus-serial-communication-using-arduino-uno-as-slave"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/RS-485-MODBUS-Serial-Communication-using-Arduino-UNO-as-Slave.jpg?itok=Wnu1XQU_" width="275" height="160" alt="RS-485 MODBUS Serial Communication using Arduino UNO as Slave" title="RS-485 MODBUS Serial Communication using Arduino UNO as Slave" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/rs485-modbus-serial-communication-using-arduino-uno-as-slave">RS-485 MODBUS Serial Communication using Arduino UNO as Slave</a></span>  </div>    </div>
+      <div class="views-col col-sm-6 col-md-6 col-lg-3">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/arduino-sw-420-vibration-sensor-module-interfacing"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/Interfacing-Vibration-Sensor-Module-with-Arduino.jpg?itok=4p4GV_gq" width="275" height="160" alt="Interfacing Vibration Sensor Module with Arduino" title="Interfacing Vibration Sensor Module with Arduino" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/arduino-sw-420-vibration-sensor-module-interfacing">Interfacing Vibration Sensor Module with Arduino</a></span>  </div>    </div>
+      <div class="views-col col-sm-6 col-md-6 col-lg-3 views-column-last">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/rs485-serial-communication-between-arduino-and-raspberry-pi"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/RS-485-Serial-Communication-between-Raspberry-Pi-and-Arduino-Uno.jpg?itok=BNm66-Rw" width="275" height="160" alt="RS-485 Serial Communication between Raspberry Pi and Arduino Uno" title="RS-485 Serial Communication between Raspberry Pi and Arduino Uno" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/rs485-serial-communication-between-arduino-and-raspberry-pi">RS-485 Serial Communication between Raspberry Pi and Arduino Uno</a></span>  </div>    </div>
+    </div>
+      <div class="views-row views-row-last">
+      <div class="views-col col-sm-6 col-md-6 col-lg-3 views-column-first">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/arduino-7-segment-display-clock"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/Multiplexing-Four-7-Segment-Displays-using-Arduino-to-Display-Time.jpg?itok=EjZ0IyOU" width="275" height="160" alt="Multiplexing Four 7 Segment Displays using Arduino to Display Time" title="Multiplexing Four 7 Segment Displays using Arduino to Display Time" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/arduino-7-segment-display-clock">Arduino 7 Segment Display Clock by Multiplexing Four 7 Segment Displays</a></span>  </div>    </div>
+      <div class="views-col col-sm-6 col-md-6 col-lg-3">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/arduino-ttp223-touch-sensor-interfacing-to-turn-on-lights-with-touch"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/TTP223-Touch-Sensor-Interfacing-with-Arduino-UNO.jpg?itok=b099uu0b" width="275" height="160" alt="Controlling Home Lights with Touch using TTP223 Touch Sensor and Arduino UNO" title="Controlling Home Lights with Touch using TTP223 Touch Sensor and Arduino UNO" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/arduino-ttp223-touch-sensor-interfacing-to-turn-on-lights-with-touch">Control Home Lights with Touch using TTP223 Touch Sensor and Arduino UNO</a></span>  </div>    </div>
+      <div class="views-col col-sm-6 col-md-6 col-lg-3">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"><a href="/microcontroller-projects/how-to-use-ov7670-camera-module-with-arduino"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/How-to-Use-OV7670-Camera-Module-with-Arduino%E2%80%8B_0.jpg?itok=RY0UPIBs" width="275" height="160" alt="How to Use OV7670 Camera Module with Arduino​" title="How to Use OV7670 Camera Module with Arduino​" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/microcontroller-projects/how-to-use-ov7670-camera-module-with-arduino">How to Use OV7670 Camera Module with Arduino​</a></span>  </div>    </div>
+      <div class="views-col col-sm-6 col-md-6 col-lg-3 views-column-last">
+        
+  <div class="views-field views-field-field-image">        <div class="field-content"><a href="/news/chirp-launches-sdk-deliver-data-over-sound-esp32-arduino-projects"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_news/esp32-1.jpg?itok=LcJAVfbo" width="275" height="160" alt="Chirp launches SDK to deliver data-over-sound for ESP32 Arduino projects" title="Chirp launches SDK to deliver data-over-sound for ESP32 Arduino projects" /></a></div>  </div>  
+  <div class="views-field views-field-field-project-image">        <div class="field-content"></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/news/chirp-launches-sdk-deliver-data-over-sound-esp32-arduino-projects">Chirp launches SDK to deliver data-over-sound for ESP32 Arduino projects</a></span>  </div>    </div>
+    </div>
+    </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+  </div>
+<!-- total 288 lines -->
+<!-- Begin Mailchimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{border:2px solid #dadada; clear:left; font:14px Helvetica,Arial,sans-serif; margin-top: 20px; }
+</style>
+<div id="mc_embed_signup">
+<form action="https://circuitdigest.us19.list-manage.com/subscribe/post?u=7831027c963ad1778e5688a40&amp;id=ff5ac3f382" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h3 style="font-weight:500;margin: 10px 0; text-align: center;">Get Our Weekly Newsletter!</h3>
+<p style="text-align: center; margin-bottom:20px;">Subscribe below to receive most popular news, articles and DIY projects from Circuit Digest</p>
+<div class="mc-field-group" style="padding-bottom: 1.5%">
+	<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+</label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+<div class="mc-field-group" style="padding-bottom: 1.5%">
+	<label for="mce-FNAME">Name </label>
+	<input type="text" value="" name="FNAME" class="" id="mce-FNAME">
+</div>
+<div class="mc-field-group" style="width: 250px; padding-bottom: 1.5%;">
+	<label for="mce-MMERGE2">Country </label>
+	<select name="MMERGE2" class="" id="mce-MMERGE2">
+	<option value="United States of America">United States of America</option>
+<option value="Aaland Islands">Aaland Islands</option>
+<option value="Afghanistan">Afghanistan</option>
+<option value="Albania">Albania</option>
+<option value="Algeria">Algeria</option>
+<option value="American Samoa">American Samoa</option>
+<option value="Andorra">Andorra</option>
+<option value="Angola">Angola</option>
+<option value="Anguilla">Anguilla</option>
+<option value="Antarctica">Antarctica</option>
+<option value="Antigua And Barbuda">Antigua And Barbuda</option>
+<option value="Argentina">Argentina</option>
+<option value="Armenia">Armenia</option>
+<option value="Aruba">Aruba</option>
+<option value="Australia">Australia</option>
+<option value="Austria">Austria</option>
+<option value="Azerbaijan">Azerbaijan</option>
+<option value="Bahamas">Bahamas</option>
+<option value="Bahrain">Bahrain</option>
+<option value="Bangladesh">Bangladesh</option>
+<option value="Barbados">Barbados</option>
+<option value="Belarus">Belarus</option>
+<option value="Belgium">Belgium</option>
+<option value="Belize">Belize</option>
+<option value="Benin">Benin</option>
+<option value="Bermuda">Bermuda</option>
+<option value="Bhutan">Bhutan</option>
+<option value="Bolivia">Bolivia</option>
+<option value="Bonaire, Saint Eustatius and Saba">Bonaire, Saint Eustatius and Saba</option>
+<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+<option value="Botswana">Botswana</option>
+<option value="Bouvet Island">Bouvet Island</option>
+<option value="Brazil">Brazil</option>
+<option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+<option value="Brunei Darussalam">Brunei Darussalam</option>
+<option value="Bulgaria">Bulgaria</option>
+<option value="Burkina Faso">Burkina Faso</option>
+<option value="Burundi">Burundi</option>
+<option value="Cambodia">Cambodia</option>
+<option value="Cameroon">Cameroon</option>
+<option value="Canada">Canada</option>
+<option value="Cape Verde">Cape Verde</option>
+<option value="Cayman Islands">Cayman Islands</option>
+<option value="Central African Republic">Central African Republic</option>
+<option value="Chad">Chad</option>
+<option value="Chile">Chile</option>
+<option value="China">China</option>
+<option value="Christmas Island">Christmas Island</option>
+<option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+<option value="Colombia">Colombia</option>
+<option value="Comoros">Comoros</option>
+<option value="Congo">Congo</option>
+<option value="Cook Islands">Cook Islands</option>
+<option value="Costa Rica">Costa Rica</option>
+<option value="Cote D'Ivoire">Cote D'Ivoire</option>
+<option value="Croatia">Croatia</option>
+<option value="Cuba">Cuba</option>
+<option value="Curacao">Curacao</option>
+<option value="Cyprus">Cyprus</option>
+<option value="Czech Republic">Czech Republic</option>
+<option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+<option value="Denmark">Denmark</option>
+<option value="Djibouti">Djibouti</option>
+<option value="Dominica">Dominica</option>
+<option value="Dominican Republic">Dominican Republic</option>
+<option value="Ecuador">Ecuador</option>
+<option value="Egypt">Egypt</option>
+<option value="El Salvador">El Salvador</option>
+<option value="Equatorial Guinea">Equatorial Guinea</option>
+<option value="Eritrea">Eritrea</option>
+<option value="Estonia">Estonia</option>
+<option value="Ethiopia">Ethiopia</option>
+<option value="Falkland Islands">Falkland Islands</option>
+<option value="Faroe Islands">Faroe Islands</option>
+<option value="Fiji">Fiji</option>
+<option value="Finland">Finland</option>
+<option value="France">France</option>
+<option value="French Guiana">French Guiana</option>
+<option value="French Polynesia">French Polynesia</option>
+<option value="French Southern Territories">French Southern Territories</option>
+<option value="Gabon">Gabon</option>
+<option value="Gambia">Gambia</option>
+<option value="Georgia">Georgia</option>
+<option value="Germany">Germany</option>
+<option value="Ghana">Ghana</option>
+<option value="Gibraltar">Gibraltar</option>
+<option value="Greece">Greece</option>
+<option value="Greenland">Greenland</option>
+<option value="Grenada">Grenada</option>
+<option value="Guadeloupe">Guadeloupe</option>
+<option value="Guam">Guam</option>
+<option value="Guatemala">Guatemala</option>
+<option value="Guernsey">Guernsey</option>
+<option value="Guinea">Guinea</option>
+<option value="Guinea-Bissau">Guinea-Bissau</option>
+<option value="Guyana">Guyana</option>
+<option value="Haiti">Haiti</option>
+<option value="Heard and Mc Donald Islands">Heard and Mc Donald Islands</option>
+<option value="Honduras">Honduras</option>
+<option value="Hong Kong">Hong Kong</option>
+<option value="Hungary">Hungary</option>
+<option value="Iceland">Iceland</option>
+<option value="India">India</option>
+<option value="Indonesia">Indonesia</option>
+<option value="Iran">Iran</option>
+<option value="Iraq">Iraq</option>
+<option value="Ireland">Ireland</option>
+<option value="Isle of Man">Isle of Man</option>
+<option value="Israel">Israel</option>
+<option value="Italy">Italy</option>
+<option value="Jamaica">Jamaica</option>
+<option value="Japan">Japan</option>
+<option value="Jersey  (Channel Islands)">Jersey  (Channel Islands)</option>
+<option value="Jordan">Jordan</option>
+<option value="Kazakhstan">Kazakhstan</option>
+<option value="Kenya">Kenya</option>
+<option value="Kiribati">Kiribati</option>
+<option value="Kuwait">Kuwait</option>
+<option value="Kyrgyzstan">Kyrgyzstan</option>
+<option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+<option value="Latvia">Latvia</option>
+<option value="Lebanon">Lebanon</option>
+<option value="Lesotho">Lesotho</option>
+<option value="Liberia">Liberia</option>
+<option value="Libya">Libya</option>
+<option value="Liechtenstein">Liechtenstein</option>
+<option value="Lithuania">Lithuania</option>
+<option value="Luxembourg">Luxembourg</option>
+<option value="Macau">Macau</option>
+<option value="Macedonia">Macedonia</option>
+<option value="Madagascar">Madagascar</option>
+<option value="Malawi">Malawi</option>
+<option value="Malaysia">Malaysia</option>
+<option value="Maldives">Maldives</option>
+<option value="Mali">Mali</option>
+<option value="Malta">Malta</option>
+<option value="Marshall Islands">Marshall Islands</option>
+<option value="Martinique">Martinique</option>
+<option value="Mauritania">Mauritania</option>
+<option value="Mauritius">Mauritius</option>
+<option value="Mayotte">Mayotte</option>
+<option value="Mexico">Mexico</option>
+<option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+<option value="Moldova, Republic of">Moldova, Republic of</option>
+<option value="Monaco">Monaco</option>
+<option value="Mongolia">Mongolia</option>
+<option value="Montenegro">Montenegro</option>
+<option value="Montserrat">Montserrat</option>
+<option value="Morocco">Morocco</option>
+<option value="Mozambique">Mozambique</option>
+<option value="Myanmar">Myanmar</option>
+<option value="Namibia">Namibia</option>
+<option value="Nauru">Nauru</option>
+<option value="Nepal">Nepal</option>
+<option value="Netherlands">Netherlands</option>
+<option value="Netherlands Antilles">Netherlands Antilles</option>
+<option value="New Caledonia">New Caledonia</option>
+<option value="New Zealand">New Zealand</option>
+<option value="Nicaragua">Nicaragua</option>
+<option value="Niger">Niger</option>
+<option value="Nigeria">Nigeria</option>
+<option value="Niue">Niue</option>
+<option value="Norfolk Island">Norfolk Island</option>
+<option value="North Korea">North Korea</option>
+<option value="Northern Mariana Islands">Northern Mariana Islands</option>
+<option value="Norway">Norway</option>
+<option value="Oman">Oman</option>
+<option value="Pakistan">Pakistan</option>
+<option value="Palau">Palau</option>
+<option value="Palestine">Palestine</option>
+<option value="Panama">Panama</option>
+<option value="Papua New Guinea">Papua New Guinea</option>
+<option value="Paraguay">Paraguay</option>
+<option value="Peru">Peru</option>
+<option value="Philippines">Philippines</option>
+<option value="Pitcairn">Pitcairn</option>
+<option value="Poland">Poland</option>
+<option value="Portugal">Portugal</option>
+<option value="Puerto Rico">Puerto Rico</option>
+<option value="Qatar">Qatar</option>
+<option value="Republic of Kosovo">Republic of Kosovo</option>
+<option value="Reunion">Reunion</option>
+<option value="Romania">Romania</option>
+<option value="Russia">Russia</option>
+<option value="Rwanda">Rwanda</option>
+<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+<option value="Saint Lucia">Saint Lucia</option>
+<option value="Saint Martin">Saint Martin</option>
+<option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+<option value="Samoa (Independent)">Samoa (Independent)</option>
+<option value="San Marino">San Marino</option>
+<option value="Sao Tome and Principe">Sao Tome and Principe</option>
+<option value="Saudi Arabia">Saudi Arabia</option>
+<option value="Senegal">Senegal</option>
+<option value="Serbia">Serbia</option>
+<option value="Seychelles">Seychelles</option>
+<option value="Sierra Leone">Sierra Leone</option>
+<option value="Singapore">Singapore</option>
+<option value="Sint Maarten">Sint Maarten</option>
+<option value="Slovakia">Slovakia</option>
+<option value="Slovenia">Slovenia</option>
+<option value="Solomon Islands">Solomon Islands</option>
+<option value="Somalia">Somalia</option>
+<option value="South Africa">South Africa</option>
+<option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+<option value="South Korea">South Korea</option>
+<option value="South Sudan">South Sudan</option>
+<option value="Spain">Spain</option>
+<option value="Sri Lanka">Sri Lanka</option>
+<option value="St. Helena">St. Helena</option>
+<option value="St. Pierre and Miquelon">St. Pierre and Miquelon</option>
+<option value="Sudan">Sudan</option>
+<option value="Suriname">Suriname</option>
+<option value="Svalbard and Jan Mayen Islands">Svalbard and Jan Mayen Islands</option>
+<option value="Swaziland">Swaziland</option>
+<option value="Sweden">Sweden</option>
+<option value="Switzerland">Switzerland</option>
+<option value="Syria">Syria</option>
+<option value="Taiwan">Taiwan</option>
+<option value="Tajikistan">Tajikistan</option>
+<option value="Tanzania">Tanzania</option>
+<option value="Thailand">Thailand</option>
+<option value="Timor-Leste">Timor-Leste</option>
+<option value="Togo">Togo</option>
+<option value="Tokelau">Tokelau</option>
+<option value="Tonga">Tonga</option>
+<option value="Trinidad and Tobago">Trinidad and Tobago</option>
+<option value="Tunisia">Tunisia</option>
+<option value="Turkey">Turkey</option>
+<option value="Turkmenistan">Turkmenistan</option>
+<option value="Turks &amp; Caicos Islands">Turks &amp; Caicos Islands</option>
+<option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+<option value="Tuvalu">Tuvalu</option>
+<option value="Uganda">Uganda</option>
+<option value="Ukraine">Ukraine</option>
+<option value="United Arab Emirates">United Arab Emirates</option>
+<option value="United Kingdom">United Kingdom</option>
+<option value="Uruguay">Uruguay</option>
+<option value="USA Minor Outlying Islands">USA Minor Outlying Islands</option>
+<option value="Uzbekistan">Uzbekistan</option>
+<option value="Vanuatu">Vanuatu</option>
+<option value="Vatican City State (Holy See)">Vatican City State (Holy See)</option>
+<option value="Venezuela">Venezuela</option>
+<option value="Vietnam">Vietnam</option>
+<option value="Virgin Islands (British)">Virgin Islands (British)</option>
+<option value="Virgin Islands (U.S.)">Virgin Islands (U.S.)</option>
+<option value="Wallis and Futuna Islands">Wallis and Futuna Islands</option>
+<option value="Western Sahara">Western Sahara</option>
+<option value="Yemen">Yemen</option>
+<option value="Zambia">Zambia</option>
+<option value="Zimbabwe">Zimbabwe</option>
+
+	</select>
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_7831027c963ad1778e5688a40_ff5ac3f382" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='MMERGE2';ftypes[2]='dropdown';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->		              <footer class="post-meta">
+	    
+	 
+              <div class="tags-wrapper">
+                                </div><!-- .tags-wrapper -->
+
+              <!--<div class="share-wrapper clearfix">
+                <div class="total-shares">
+                  <em id="countUp" data-count="0">0</em>
+                  <div class="caption">Shares</div>
+                </div>
+
+                <div class="share-buttons">
+                <div class="sharethis-inline-share-buttons"></div>
+                </div>
+				</div>     -->                         
+             
+              <div class="row">
+                <div class="post-nav-wrapper clearfix">
+                  <div class="col-md-6 omega">
+                    <div class="previous-post">
+		                          <div class="post-nav-label">
+                        <i class="fa fa-angle-left"></i>
+                        Previous post
+                      </div>
+		                           <a href="https://circuitdigest.com/microcontroller-projects/arduino-audio-music-player" class="post-nav-title">Simple Arduino Audio Player and Amplifier with LM386</a>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 alpha">
+                    <div class="next-post">
+		                            <div class="post-nav-label">
+                        Next post
+                        <i class="fa fa-angle-right"></i>
+                      </div>
+		                            <a href="https://circuitdigest.com/microcontroller-projects/playing-melodies-on-piezo-buzzer-using-arduino-tone-function" class="post-nav-title">Playing Melodies using Arduino Tone() Function</a>
+                    </div>
+                  </div>
+                </div><!-- .post-nav-wrapper -->
+              </div>
+          <!-- <div class="author-box clearfix">
+	                  </div> -->
+            </footer>
+          </article><!-- .post-wrapper -->
+
+          <div class="related-posts clearfix">
+     </div><!-- .related-post -->          
+          <!-- Mid ad -->
+<!-- <div class="row">
+   <div class="col-md-12">
+     <div class="ad728-wrapper mid-wrapper">
+       <a href="#">
+         <img src="http://placehold.it/728x90" alt=""/>
+       </a> 
+     </div>
+   </div>
+</div> -->
+<!-- End Mid ad -->
+          <!-- Comment List -->
+<div id="comments" class="comments-wrapper clearfix">
+<h3 class="block-title"><span>Comments</span></h3>
+  <a id="comment-17473"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="rajan muniappan&#039;s picture" title="rajan muniappan&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">rajan muniappan</span></span></strong><br> Aug 31, 2017	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>prject IOT</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul><a id="comment-18440"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="Hemil Gurjar&#039;s picture" title="Hemil Gurjar&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">Hemil Gurjar</span></span></strong><br> Sep 25, 2017	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>Dear sir,<br />
+                Can I use GSM module SIM900  of another company (other than Simcom).</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul><a id="comment-18684"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="Bahoz&#039;s picture" title="Bahoz&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">Bahoz</span></span></strong><br> Oct 03, 2017	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>Hi<br />
+Thanks for explanation<br />
+I have some question about a project that I want to make it with GPRS/GSM module<br />
+I want to control three stepper motor with a Joystick module that there is a distination between stepper and Joystick then I decieded to use GPRS module<br />
+Do you think it is possible and I can make it?<br />
+Thanks</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul><a id="comment-21113"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="FRAKA&#039;s picture" title="FRAKA&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">FRAKA</span></span></strong><br> Dec 13, 2017	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>Good tutorial guys! I would like to ask if it&#039;s possible to transfer data/file of let say 10MB with GSM/GPRS without internet.<br />
+I am working on a project where internet connection is big problem. Hope I will get some assistances here.</p>
+<p>Thanks guys</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul><a id="comment-21227"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="rahul kumar&#039;s picture" title="rahul kumar&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">rahul kumar</span></span></strong><br> Dec 16, 2017	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>very nice tutorial..<br />
+but i found that <a href="https://data.sparkfun.com/">https://data.sparkfun.com/</a> is not operating now ,where i should sent data now. any alternative if known , please tell.</p>
+<p>what is the means of code segment<br />
+1.url+=&quot; HTTP/1.0\r\n\r\n&quot;;<br />
+      String svr=Start+&quot;,&quot;+ip+&quot;,&quot;+port;<br />
+2. connectGSM(&quot;AT+CSTT=\&quot;airtelgprs.com\&quot;,\&quot;\&quot;,\&quot;\&quot;&quot;,&quot;OK&quot;);</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul><a id="comment-24750"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="Mahesh&#039;s picture" title="Mahesh&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">Mahesh</span></span></strong><br> Mar 20, 2018	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>SIMCOM900 and SIMCOM800 are GSM module that can be used for wireless data transmission to a server. Further this modules can be integrated to a micro-controller by serial interface and establish communication with the modem using &quot;AT commands&quot;. Now assume that you have a library named &quot;simcom_900_and_800.h&quot; that has a function named sendCommandToModem(char* cmd, char* response, int max_response_length), that can be used to send command to the GSM module and the response of the module will be stored in the variable &quot;response&quot;. For example: char command[10] = &quot;AT&quot;; char response[100]; int maxRespLen = 100; sendCommandToModem(command, response, maxRespLen); After execution of the above four line the response variable contains &quot;AT\nOK&quot;. AT command is used to check if modem is working fine or not. Similarly there are other set of commands that can be used to interface the GSM Modem with the controller to send data to a server. (you can go through internet for more details about SIMCOM900/800 and AT commands set ). Now wirte a function named &quot;transmitDataToServer&quot; that will use the above library and &quot;sendCommandToModem&quot; function to interface with the modem and transmit data to the server with IP = &quot;192.168.0.1&quot; with port = &quot;12121&quot;. Use proper arguments for the function(at least one argument named &quot;txData&quot; that contains data to be transmitted. [ Hint: there are series of AT commands that can be sent to the modem to initialize, connect to network and connect to a specified server.]</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul><a id="comment-25730"></a>
+
+<ul class="comments" style="margin-bottom: 20px; list-style-type: none;">
+  <li>
+    <div class="comment">
+		  <div class="img-thumbnail" style="float:left;  overflow: hidden; border-radius: 50%; padding:0 !important; margin-right: 10px;">
+		      <div class="user-picture">
+    <img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="najwa&#039;s picture" title="najwa&#039;s picture" />	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+		  </div>
+		  <div class="comment-block">  
+		    <div class="comment-arrow"></div>
+        <span class="comment-by">
+	        <strong><span rel="sioc:has_creator"><span class="username" xml:lang="" typeof="sioc:UserAccount" property="foaf:name" datatype="">najwa</span></span></strong><br> Apr 18, 2018	        <span class="pull-right">
+	          <ul class="links inline"><li class="comment_forbidden first last"><span><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post comments</span></li>
+</ul>	        </span>
+        </span>
+
+		    		    
+		    <div class="comment-content">
+		      <div class="row">
+		      <p>
+		      <span rel="sioc:reply_of" resource="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" class="rdf-meta element-hidden"></span><!--
+THIS FILE IS NOT USED AND IS HERE AS A STARTING POINT FOR CUSTOMIZATION ONLY.
+See http://api.drupal.org/api/function/theme_field/7 for details.
+After copying this file to your theme's folder and customizing it, remove this
+HTML comment.
+-->
+<div class="field field-name-comment-body field-type-text-long field-label-hidden">
+    <div class="field-items">
+          <div class="field-item even" property="content:encoded"><p>how to send gps data without using keypad?</p>
+</div>
+      </div>
+</div>
+		      </p>
+		      </div>
+			  
+		      		    </div>
+		    <span class="date pull-right">
+		      		    </span>  
+      </div>
+    </div>
+  </li>
+</ul>  <!-- Comment form -->
+  <div id="respond" class="comment-form clearfix">
+        <h3 class="comment-title"><a href="/user/login?destination=node/946%23comment-form">Log in</a> or <a href="/user/register?destination=node/946%23comment-form">register</a> to post Comment</h3>	  </div><!-- #respond comments -->
+</div>
+
+		<style>#block-views-ti-videos-block-13 li{padding:5px; list-style: disc;} #block-views-ti-videos-block-13 .more-link{float: right; padding-right: 10px;}</style>
+    <div class="widget subscribewidget" style="padding-left: 30px;">
+      <!-- <h3><strong>TI Whitepapers</strong></h3> -->
+	 <!-- <h3 class="block-title"><span>TI Training Videos</span></h3> -->
+      <div class="region region-below-comment">
+    <div id="block-views-ti-videos-block-13" class="block block-views">
+
+    <h2><h3 class="block-title"><span>TI Training Videos</span></h3></h2>
+  
+  <div class="content">
+    <div class="view view-ti-videos view-id-ti_videos view-display-id-block_13 post-style-list view-dom-id-2afc7e5dec2bfc06bfd486feaaf18054">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/solutions-fast-charging-electric-vehicle-supply-equipment-evse-design?cu=1127787&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fsolutions-fast-charging-electric-vehicle-supply-equipment-evse-design%3Fcu=1127787&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">Solutions for Fast Charging Electric Vehicle Supply Equipment (EVSE) Design</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/introduction-ev-charging-stations-piles?HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fintroduction-ev-charging-stations-piles%3FHQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">EV Charging station - Introduction</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/introduction-ev-charging-pile-station-standards?cu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fintroduction-ev-charging-pile-station-standards%3Fcu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">Introduction to EV charging (pile) station standards</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://www.youtube.com/watch?v=-T6pkCVQZhM&amp;DCM=yes
+&amp;https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv=-T6pkCVQZhM&amp;DCM=yes_" rel="nofollow" target="_blank">The Future of Renewable Energy</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/level-1-and-2-ac-charging-pile-station-design-considerations?cu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Flevel-1-and-2-ac-charging-pile-station-design-considerations%3Fcu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">Level 1 and 2 AC Charging (Pile) Station Design Considerations</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/ev-charging-station-system-solutions?cu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fev-charging-station-system-solutions%3Fcu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">EV Charging Station System Solutions</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/commonly-overlooked-sub-systems-ev-charging-pile-stations?cu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fcommonly-overlooked-sub-systems-ev-charging-pile-stations%3Fcu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">Commonly Overlooked Sub-Systems in EV Charging (Pile) Stations</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-8 views-row-even">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/level-3-ev-dc-charging-pile-station-design-considerations?cu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Flevel-3-ev-dc-charging-pile-station-design-considerations%3Fcu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">Level 3 EV / DC Charging (Pile) Station Design Considerations</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-9 views-row-odd">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/high-voltage-solutions-hevev-part-i-board-chargers-and-charging-stations?HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fhigh-voltage-solutions-hevev-part-i-board-chargers-and-charging-stations%3FHQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">High Voltage Solutions in HEV/EV Part I - On Board Chargers and Charging Stations</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-10 views-row-even">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/high-voltage-solutions-hevev-part-ii-dcdc-converters-and-traction-inverters?cu=1134585&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fhigh-voltage-solutions-hevev-part-ii-dcdc-converters-and-traction-inverters%3Fcu=1134585&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">High Voltage Solutions in HEV/EV Part II - DC/DC Converters and Traction Inverters</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-11 views-row-odd">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/design-considerations-usb-type-c-power-delivery?cu=1134585&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fdesign-considerations-usb-type-c-power-delivery%3Fcu=1134585&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">Design considerations for USB Type-C™ power delivery</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-12 views-row-even">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/how-design-multi-kw-dcdc-converters-electric-vehicles-evs-ev-system-overview?cu=1128387&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fhow-design-multi-kw-dcdc-converters-electric-vehicles-evs-ev-system-overview%3Fcu=1128387&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">How to Design Multi-kW DC/DC Converters for Electric Vehicles (EVs) - EV System Overview</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-13 views-row-odd">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://www.youtube.com/watch?v=ZsjsRozC66M&amp;DCM=yes
+&amp;https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv=ZsjsRozC66M&amp;DCM=yes_" rel="nofollow" target="_blank">TI Technology Enables High-Power EV DC Fast Charging Stations</a>
+                  
+
+                </header>
+ </div>  </div></li>
+          <li class="views-row views-row-14 views-row-even views-row-last">  
+  <div class="views-field views-field-nothing">        <div class="field-content">
+
+                <header>
+
+              
+<a href="https://ad.doubleclick.net/ddm/clk/440294741;243805998;s?https://training.ti.com/ev-charging-pile-station-subsystem-analysis?cu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes
+&amp;https%3A%2F%2Ftraining.ti.com%2Fev-charging-pile-station-subsystem-analysis%3Fcu=1128055&amp;HQS=corp-otpp-null-training_videos-asset-tr-CircuitDigest-in&amp;DCM=yes_" rel="nofollow" target="_blank">EV Charging (Pile) Station Subsystem Analysis</a>
+                  
+
+                </header>
+ </div>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+  </div>
+    </div>
+		
+</div><!-- End Left big column -->
+
+        <!-- <div class="col-md-4" data-stickycolumn> --><!-- data-stickycolumn make the rightside baar sticky -->
+				<div class="col-md-4">
+  <aside class="sidebar clearfix">
+	
+    <div class="widget adwidget" style="padding: 0px; border:none; margin-bottom: 20px;">
+      <div class="region region-sidebar-right-ads">
+    <div id="block-block-16" class="block block-block">
+
+    
+  <div class="content">
+    <!--<div style="padding: 20px; border: 2px solid #dadada;">-->
+<div>
+<!-- /21034905/boombox_bottom -->
+<div id='div-gpt-ad-1533626231783-0' style='height:250px; width:300px; margin-left: auto; margin-right: auto;'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1533626231783-0'); });
+</script>
+</div>
+</div>
+
+
+  </div>
+</div>
+<div id="block-views-front-left-and-right-block-3" class="block block-views yellow-color">
+
+    <h2><h3 class="block-title"><span>Latest Posts</span></h3></h2>
+  
+  <div class="content">
+    <div class="view view-front-left-and-right view-id-front_left_and_right view-display-id-block_3 view-dom-id-e6039075ae0e92e2ba1f7d919d2169d3">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="post-block">
+        <div class="post-image">
+               <a href="/news/650v-high-frequency-igbts-boost-performance-with-latest-high-speed-technology"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium__550x315_/public/projectimage_news/650V-HB2-IGBT.png?itok=6pYw1OJP" width="480" height="250" alt="650V High-Frequency IGBTs Boost Performance with Latest High-Speed Technology" title="650V High-Frequency IGBTs Boost Performance with Latest High-Speed Technology" /></a>
+         </div>
+         <div class="post-content">
+                 <div class="post-meta-wrap">
+                        <div class="post-title"><a href="/news/650v-high-frequency-igbts-boost-performance-with-latest-high-speed-technology">650V High-Frequency IGBTs Boost Performance with Latest High-Speed Technology</a></div>
+                       
+                 </div>
+    
+          </div>
+</div></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="post-block">
+        <div class="post-image">
+               <a href="/article/different-types-of-motors-used-in-electric-vehicles-ev"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium__550x315_/public/field/image/Types-of-Motors-used-in-Electric-Vehicles_0.jpg?itok=HNub9fYD" width="480" height="250" alt="Types of Motors used in Electric Vehicles" title="Types of Motors used in Electric Vehicles" /></a>
+         </div>
+         <div class="post-content">
+                 <div class="post-meta-wrap">
+                        <div class="post-title"><a href="/article/different-types-of-motors-used-in-electric-vehicles-ev">Types of Motors used in Electric Vehicles</a></div>
+                       
+                 </div>
+    
+          </div>
+</div></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="post-block">
+        <div class="post-image">
+               <a href="/news/versatile-boost-controller-for-led-lcd-applications"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium__550x315_/public/projectimage_news/AL3353.jpg?itok=fuUVNjrn" width="480" height="250" alt="Versatile Boost Controller for LED/LCD Applications " title="Versatile Boost Controller for LED/LCD Applications " /></a>
+         </div>
+         <div class="post-content">
+                 <div class="post-meta-wrap">
+                        <div class="post-title"><a href="/news/versatile-boost-controller-for-led-lcd-applications">Versatile Boost Controller for LED/LCD Applications Delivers 1~100% Dimming Range</a></div>
+                       
+                 </div>
+    
+          </div>
+</div></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-block-32" class="block block-block">
+
+    
+  <div class="content">
+    <br/><div style="padding: 20px; border: 2px solid #dadada;">
+          <div id="ali-banner"></div>
+            <script type="text/javascript">
+            (function (d, w, p, q, i) {
+              var s = d.createElement('script');
+              var f = q.replace('#', '');
+              s.src = '//' + p + '/s?d=' + i + '&f=' + f + '&r=' + new Date().getTime();
+              s.onload = function () {
+                typeof w[f] === 'function' && w[f](p, q, d, i)
+              };
+              d.body.appendChild(s);
+            })(document, window, 'ali-crm.ru', '#ali-banner', 728)
+            </script>
+</div><br/>
+  </div>
+</div>
+<div id="block-views-front-left-and-right-block-4" class="block block-views yellow-color">
+
+    
+  <div class="content">
+    <div class="view view-front-left-and-right view-id-front_left_and_right view-display-id-block_4 view-dom-id-80ab878561992dd3685be2baa19a4372">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="post-block">
+        <div class="post-image">
+               <a href="/news/texas-instruments-ultra-low-jitter-lmk05318-clock-with-baw-resonator"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium__550x315_/public/projectimage_news/LMK05318-network-synchronizer-clock.jpg?itok=IqHMkfld" width="480" height="250" alt="Texas Instruments&#039; Ultra-Low-Jitter LMK05318 Clock with BAW Resonator" title="Texas Instruments&#039; Ultra-Low-Jitter LMK05318 Clock with BAW Resonator" /></a>
+         </div>
+         <div class="post-content">
+                 <div class="post-meta-wrap">
+                        <div class="post-title"><a href="/news/texas-instruments-ultra-low-jitter-lmk05318-clock-with-baw-resonator">Texas Instruments&#039; Ultra-Low-Jitter LMK05318 Clock with BAW Resonator</a></div>
+                       
+                 </div>
+    
+          </div>
+</div></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="post-block">
+        <div class="post-image">
+               <a href="/microcontroller-projects/iot-controlled-home-automation-using-raspberry-pi-particle-cloud"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium__550x315_/public/projectimage_mic/IoT-controlled-Home-Automation-using-Raspberry-Pi-and-Particle-Cloud.jpg?itok=dA_EZvNn" width="480" height="250" alt="IoT controlled Home Automation using Raspberry Pi and Particle Cloud" title="IoT controlled Home Automation using Raspberry Pi and Particle Cloud" /></a>
+         </div>
+         <div class="post-content">
+                 <div class="post-meta-wrap">
+                        <div class="post-title"><a href="/microcontroller-projects/iot-controlled-home-automation-using-raspberry-pi-particle-cloud">IoT controlled Home Automation using Raspberry Pi and Particle Cloud</a></div>
+                       
+                 </div>
+    
+          </div>
+</div></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <div class="views-field views-field-nothing">        <span class="field-content"><div class="post-block">
+        <div class="post-image">
+               <a href="/article/an-overview-of-global-automotive-battery-management-system-market"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium__550x315_/public/field/image/market-research-on-automotive-battery-management-system.jpg?itok=Qta7PzO8" width="480" height="250" alt="Market Research on Automotive Battery Management System" title="Market Research on Automotive Battery Management System" /></a>
+         </div>
+         <div class="post-content">
+                 <div class="post-meta-wrap">
+                        <div class="post-title"><a href="/article/an-overview-of-global-automotive-battery-management-system-market">An Overview of Global Automotive Battery Management Systems Market</a></div>
+                       
+                 </div>
+    
+          </div>
+</div></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+<div id="block-block-37" class="block block-block">
+
+    
+  <div class="content">
+    <br/>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-3737030722290655";
+/* CM_Circuitdigest_BTF_MRSB */
+google_ad_slot = "CM_Circuitdigest_BTF_MRSB";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br/>
+  </div>
+</div>
+  </div>
+	
+    </div>
+	
+	<!-- right side bar search -->
+    <!--<div class="widget searchwidget">
+      <form class="searchwidget-form">
+        <div class="input-group">
+          <input type="text" class="form-control" id="search1" placeholder="Search...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search" onclick="location.href='/circuitdigest/search/node/'+ document.getElementById('search1').value;"></i></button>
+          </span>
+        </div>
+      </form>
+    </div> -->
+    <div class="widget tabwidget">
+       <div class="region region-sidebar-tabwidget">
+    <div id="block-block-30" class="block block-block">
+
+    
+  <div class="content">
+    <ul class="nav nav-tabs" role="tablist" id="widget-tab">
+        <li role="presentation" class="active"><a href="#tab-popular" aria-controls="tab-popular" role="tab" data-toggle="tab">News</a></li>
+        <li role="presentation"><a href="#tab-recent" aria-controls="tab-recent" role="tab" data-toggle="tab">Articles</a></li>
+        <li role="presentation"><a href="#tab-comments" aria-controls="tab-comments" role="tab" data-toggle="tab">Projects</a></li>
+      </ul>  </div>
+</div>
+  </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tab-popular">
+	  <div class="region region-sidebar-tab-popular">
+    <div id="block-views-front-left-and-right-block-6" class="block block-views">
+
+    
+  <div class="content">
+    <div class="view view-front-left-and-right view-id-front_left_and_right view-display-id-block_6 view-dom-id-cca6ec0ccb423013121f5ba06585b9aa">
+        
+  
+  
+      <div class="view-content">
+      	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/news/650v-high-frequency-igbts-boost-performance-with-latest-high-speed-technology"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_news/650V-HB2-IGBT.png?itok=0wrnR2Lv" width="275" height="160" alt="650V High-Frequency IGBTs Boost Performance with Latest High-Speed Technology" title="650V High-Frequency IGBTs Boost Performance with Latest High-Speed Technology" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/news/650v-high-frequency-igbts-boost-performance-with-latest-high-speed-technology">650V High-Frequency IGBTs Boost Performance with Latest High-Speed Technology</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/news/versatile-boost-controller-for-led-lcd-applications"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_news/AL3353.jpg?itok=cEMjwPdG" width="275" height="160" alt="Versatile Boost Controller for LED/LCD Applications " title="Versatile Boost Controller for LED/LCD Applications " /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/news/versatile-boost-controller-for-led-lcd-applications">Versatile Boost Controller for LED/LCD Applications Delivers 1~100% Dimming Range</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/news/texas-instruments-ultra-low-jitter-lmk05318-clock-with-baw-resonator"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_news/LMK05318-network-synchronizer-clock.jpg?itok=RYDWt8kL" width="275" height="160" alt="Texas Instruments&#039; Ultra-Low-Jitter LMK05318 Clock with BAW Resonator" title="Texas Instruments&#039; Ultra-Low-Jitter LMK05318 Clock with BAW Resonator" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/news/texas-instruments-ultra-low-jitter-lmk05318-clock-with-baw-resonator">Texas Instruments&#039; Ultra-Low-Jitter LMK05318 Clock with BAW Resonator</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/news/automotive-grade-ihlp-inductor-features-operating-temperature-180-degree-c-with-low-profile-of-7mm"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_news/automotive-grade-inductors.jpg?itok=rbUtb3kw" width="275" height="160" alt="Automotive Grade IHLP Inductor features Operating Temperature to +180 degree C with low profile of 7mm" title="Automotive Grade IHLP Inductor features Operating Temperature to +180 degree C with low profile of 7mm" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/news/automotive-grade-ihlp-inductor-features-operating-temperature-180-degree-c-with-low-profile-of-7mm">Automotive Grade IHLP Inductor features Operating Temperature to +180 degree C with low profile of 7mm</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/news/intelligent-power-modules-ipms-offer-highest-power-density-for-variable-speed-motor-drives"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_news/CIPOS_Tiny_SIP.jpg?itok=jndAaRyv" width="275" height="160" alt="Intelligent Power Modules (IPMs) for variable speed motor drives" title="Intelligent Power Modules (IPMs) for variable speed motor drives" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/news/intelligent-power-modules-ipms-offer-highest-power-density-for-variable-speed-motor-drives">Intelligent Power Modules (IPMs) offer highest power density for variable speed motor drives</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+  </div>
+
+        </div><!-- Popular posts -->
+        <div role="tabpanel" class="tab-pane" id="tab-recent">
+
+            <div class="region region-sidebar-tab-recent">
+    <div id="block-views-front-left-and-right-block-5" class="block block-views red-color">
+
+    
+  <div class="content">
+    <div class="view view-front-left-and-right view-id-front_left_and_right view-display-id-block_5 post-style-list small view-dom-id-2809eb0ac3c89dc78e5e82a1079fd024">
+        
+  
+  
+      <div class="view-content">
+      	  <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+               <a href="/article/different-types-of-motors-used-in-electric-vehicles-ev"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/field/image/Types-of-Motors-used-in-Electric-Vehicles_0.jpg?itok=VUopDdUY" width="275" height="160" alt="Types of Motors used in Electric Vehicles" title="Types of Motors used in Electric Vehicles" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/article/different-types-of-motors-used-in-electric-vehicles-ev">Types of Motors used in Electric Vehicles</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	  <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+               <a href="/article/an-overview-of-global-automotive-battery-management-system-market"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/field/image/market-research-on-automotive-battery-management-system.jpg?itok=OhWjW-_-" width="275" height="160" alt="Market Research on Automotive Battery Management System" title="Market Research on Automotive Battery Management System" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/article/an-overview-of-global-automotive-battery-management-system-market">An Overview of Global Automotive Battery Management Systems Market</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	  <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+               <a href="/article/selecting-the-right-switching-regulator-for-your-application"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/field/image/Selecting-the-Right-Switching-Regulators-for-Your-Applications.jpg?itok=_7tFR06T" width="275" height="160" alt="Selecting the Right Switching Regulator for Your Application" title="Selecting the Right Switching Regulator for Your Application" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/article/selecting-the-right-switching-regulator-for-your-application">Selecting the Right Switching Regulator for Your Application</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	  <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+               <a href="/tutorial/serial-communication-protocols"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_tut/Serial-Communication-Protocol.png?itok=0zwD3Ay_" width="275" height="160" alt="Serial Communication Protocols" title="Serial Communication Protocols" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/tutorial/serial-communication-protocols">Serial Communication Protocols</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	  <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+               <a href="/article/brushed-vs-brushlless-motor-operation-construction-applications"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/field/image/Operation-Construction-and-Application-of-Brushed-and-Brushless-Motor_0.jpg?itok=60sZ8Kp5" width="275" height="160" alt="Brushed vs Brushless Motors: Operation, Construction and Applications" title="Brushed vs Brushless Motors: Operation, Construction and Applications" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/article/brushed-vs-brushlless-motor-operation-construction-applications">Brushed vs Brushless Motors: Operation, Construction and Applications</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+  </div>
+          
+        </div><!-- Recent Posts -->
+
+        <div role="tabpanel" class="tab-pane" id="tab-comments">
+	<div class="widget-post clearfix">  
+              <div class="region region-sidebar-tab-comments">
+    <div id="block-views-front-left-and-right-block-7" class="block block-views">
+
+    
+  <div class="content">
+    <div class="view view-front-left-and-right view-id-front_left_and_right view-display-id-block_7 view-dom-id-dc78031dec66e4dbb3239c95922be36e">
+        
+  
+  
+      <div class="view-content">
+      	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/microcontroller-projects/iot-controlled-home-automation-using-raspberry-pi-particle-cloud"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/IoT-controlled-Home-Automation-using-Raspberry-Pi-and-Particle-Cloud.jpg?itok=v0IGBbN4" width="275" height="160" alt="IoT controlled Home Automation using Raspberry Pi and Particle Cloud" title="IoT controlled Home Automation using Raspberry Pi and Particle Cloud" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/microcontroller-projects/iot-controlled-home-automation-using-raspberry-pi-particle-cloud">IoT controlled Home Automation using Raspberry Pi and Particle Cloud</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/microcontroller-projects/hc-05-bluetooth-module-interfacing-with-esp8266-to-control-an-led"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/Bluetooth-Module-Interfacing-with-ESP8266.jpg?itok=5bokbgVf" width="275" height="160" alt="Bluetooth Module interfacing with ESP8266: Controlling an LED" title="Bluetooth Module interfacing with ESP8266: Controlling an LED" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/microcontroller-projects/hc-05-bluetooth-module-interfacing-with-esp8266-to-control-an-led">Bluetooth Module Interfacing with ESP8266: Controlling an LED</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/microcontroller-projects/license-plate-recognition-using-raspberry-pi-and-opencv"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/License-Plate-Recognition-using-Raspberry-Pi-and-OpenCV.jpg?itok=RhcCcqhT" width="275" height="160" alt="License Plate Recognition using Raspberry Pi and OpenCV" title="License Plate Recognition using Raspberry Pi and OpenCV" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/microcontroller-projects/license-plate-recognition-using-raspberry-pi-and-opencv">License Plate Recognition using Raspberry Pi and OpenCV</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/microcontroller-projects/diy-location-tracker-using-gsm-sim800-and-arduino"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/DIY-Location-Tracker-using-GSM-SIM800-and-Arduino.jpg?itok=BKPLkRZA" width="275" height="160" alt="DIY Location Tracker using GSM SIM800 and Arduino" title="DIY Location Tracker using GSM SIM800 and Arduino" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/microcontroller-projects/diy-location-tracker-using-gsm-sim800-and-arduino">DIY Location Tracker using GSM SIM800 and Arduino</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+	   <article class="widget-post clearfix">  
+            <div class="simple-thumb">
+              <a href="#">
+                <a href="/microcontroller-projects/installing-and-testing-mosquitto-mqtt-broker-on-raspberry-pi"><img typeof="foaf:Image" src="https://circuitdigest.com/sites/default/files/styles/medium_sc_350x200_/public/projectimage_mic/Installing-and-Testing-MQTT-Broker-on-Raspberry-Pi-for-IoT-Communication.png?itok=KqeiwxpO" width="275" height="160" alt="Installing and Testing Mosquitto MQTT Broker on Raspberry Pi for IoT Communication" title="Installing and Testing Mosquitto MQTT Broker on Raspberry Pi for IoT Communication" /></a>              </a>
+            </div>
+            <header>
+              <h3>
+                <a href="#"><a href="/microcontroller-projects/installing-and-testing-mosquitto-mqtt-broker-on-raspberry-pi">Installing and Testing Mosquitto MQTT Broker on Raspberry Pi for IoT Communication</a></a>
+              </h3>
+<!--              <p class="simple-share">
+                <span><i class="fa fa-clock-o"></i> </span>
+              </p>-->
+            </header>
+          </article>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div>
+  </div>
+	    </div>
+        </div><!-- Comments -->
+      </div>
+    </div>
+<!-- removed widget tagwidget, widget reviewwidget, widget categorywidget -->
+	
+	
+		<div class="widget subscribewidget">
+	  <div class="region region-sidebar-categorywidget">
+    <div id="block-views-all-forum-topics-block-1" class="block block-views">
+
+    <h2><h3 class="block-title"><span>Active Forum Topics</span></h3></h2>
+  
+  <div class="content">
+    <div class="view view-all-forum-topics view-id-all_forum_topics view-display-id-block_1 view-dom-id-de721f825504b4fbd73e62cee7694fc0">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/forums/embedded/bluenrg-1-bluetooth-problem" title="[teaser]" class="topic-title">BlueNRG-1 bluetooth problem</a></span>  </div>  
+  <div class="views-field views-field-name-1">        <span class="field-content">  <div class="user-picture">
+    <a href="/users/saeed" title="View user profile."><img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="Saeed&#039;s picture" title="Saeed&#039;s picture" /></a>	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+ <a href="/users/saeed" title="View user profile." class="username" xml:lang="" about="/users/saeed" typeof="sioc:UserAccount" property="foaf:name" datatype="">Saeed</a>  <span class="pull-right">Replies: 1</span></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/forums/general/safety-distress-circuit" title="[teaser]" class="topic-title">Safety Distress Circuit </a></span>  </div>  
+  <div class="views-field views-field-name-1">        <span class="field-content">  <div class="user-picture">
+    <a href="/users/roy-1" title="View user profile."><img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="Roy&#039;s picture" title="Roy&#039;s picture" /></a>	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+ <a href="/users/roy-1" title="View user profile." class="username" xml:lang="" about="/users/roy-1" typeof="sioc:UserAccount" property="foaf:name" datatype="">Roy</a>  <span class="pull-right">Replies: 4</span></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/forums/embedded/electronic-project-beginner" title="[teaser]" class="topic-title">Electronic project for a beginner.</a></span>  </div>  
+  <div class="views-field views-field-name-1">        <span class="field-content">  <div class="user-picture">
+    <a href="/users/david-4" title="View user profile."><img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="David&#039;s picture" title="David&#039;s picture" /></a>	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+ <a href="/users/david-4" title="View user profile." class="username" xml:lang="" about="/users/david-4" typeof="sioc:UserAccount" property="foaf:name" datatype="">David</a>  <span class="pull-right">Replies: 1</span></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/forums/internet-things/uart-communication-between-gsm-and-gps" title="[teaser]" class="topic-title">UART Communication between GSM and GPS </a></span>  </div>  
+  <div class="views-field views-field-name-1">        <span class="field-content">  <div class="user-picture">
+    <a href="/users/ankur" title="View user profile."><img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="Ankur&#039;s picture" title="Ankur&#039;s picture" /></a>	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+ <a href="/users/ankur" title="View user profile." class="username" xml:lang="" about="/users/ankur" typeof="sioc:UserAccount" property="foaf:name" datatype="">Ankur</a>  <span class="pull-right">Replies: 4</span></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/forums/arduino-and-raspberry-pi/projects" title="[teaser]" class="topic-title">projects</a></span>  </div>  
+  <div class="views-field views-field-name-1">        <span class="field-content">  <div class="user-picture">
+    <a href="/users/viresh" title="View user profile."><img typeof="foaf:Image" src="https://circuitdigest.com/sites/all/themes/gavias_synery/images/anon.png" alt="viresh&#039;s picture" title="viresh&#039;s picture" /></a>	
+		 <span>
+    
+	     	 
+
+		
+    	 
+	</span>
+	
+  </div>
+ <a href="/users/viresh" title="View user profile." class="username" xml:lang="" about="/users/viresh" typeof="sioc:UserAccount" property="foaf:name" datatype="">viresh</a>  <span class="pull-right">Replies: 0</span></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+      <div class="view-footer">
+      <div class="forum-node-create-links forum-node-create-links-top"><div class="forum-add-node forum-add-forum"><a href="/user/login?destination=node/add/forum" class="af-button-large"><span style="font-size:16px; font-weight:bold;">Log in to post questions</span></a></div></div><br/>    </div>
+  
+  
+</div>  </div>
+</div>
+<div id="block-user-login" class="block block-user">
+
+    <h2>User login</h2>
+  
+  <div class="content">
+    <form action="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino?destination=node/946" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">E-mail or username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first"><a href="/user/register" title="Create a new user account.">Create new account</a></li>
+<li class="last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-VL8szZ_tG05CO_pjTRc3Iq_K4fgFZ_4_YFGRpPhSRWc" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-block-38" class="block block-block">
+
+    
+  <div class="content">
+    <br/>
+<center>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-3737030722290655";
+/* CM_Circuitdigest_BTF_ERSB */
+google_ad_slot = "CM_Circuitdigest_BTF_ERSB";
+google_ad_width = 300;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>  </div>
+</div>
+  </div>
+    </div>
+		
+	            
+	<!-- <div class="col-md-4 news-text-block" style="width:100%"> --> 
+	        <!-- </div> --> 
+	<div id="floatad">
+<!-- /21034905/boombox2 -->
+<div id='div-gpt-ad-1533626231783-1' style='height:250px; width:300px;margin-left: auto; margin-right: auto;'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1533626231783-1'); });
+</script>
+</div>
+</div>
+  </aside>
+</div>
+<!-- End last column -->        
+      </div><!-- .blog-content -->
+    </div><!-- .main-content -->
+
+    <!-- End Main Banner -->
+<div class="mag-content clearfix">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ad728-wrapper">
+              </div>
+    </div>
+  </div>
+</div>
+<!-- End Main Banner -->
+  </div><!-- .main-wrapper -->
+
+<!-- Footer -->
+<footer class="footer source-org vcard copyright clearfix" id="footer" role="contentinfo">
+  <div class="footer-main">
+    <div class="fixed-main">
+      <div class="container">
+        <div class="mag-content">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="footer-block clearfix">
+                                  		
+		        
+        		<!--welcome ad is running in footer block-->
+		            
+          <!--CD_custom- footer column one Footer Social Links-->
+          <p><img alt="Circuit Digest" src="https://circuitdigest.com/sites/all/themes/gavias_synery/cd_logo.png" style="float:center; height:37px; width:160px" /></p><br/>
+<p>Connect with us on social media and stay updated with latest news, articles and projects!
+<ul class="social-list clearfix"><li class="social-facebook"><a target="_blank" href="https://www.facebook.com/circuitdigest/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li><li class="social-twitter" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter"><a target="_blank" href="https://twitter.com/CircuitDigest"><i class="fa fa-twitter"></i></a></li><li class="social-youtube"><a target="_blank" href="https://www.youtube.com/channel/UCy3CUAIYgZdAOG9k3IPdLmw" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Youtube"><i class="fa fa-youtube"></i></a></li><li class="social-instagram"><a target="_blank" href="https://www.instagram.com/circuit_digest/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Instagram"><i class="fa fa-instagram"></i></a></li><li class="social-pinterest"><a target="_blank" href="https://www.pinterest.com/circuitdigest/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a></li><li class="social-linkedin"><a target="_blank" href="https://www.linkedin.com/company/circuit-digest/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i> </a></li></ul>
+
+              </div><!-- Footer Block -->
+            </div>
+            <div class="col-md-2">
+              <div class="footer-block clearfix">
+                                
+                <!--CD_custom- footer column two Footer Category-->
+                <h3 class="footer-title">Categories</h3>
+
+<ul class="footer-menu">
+        <li><a href="https://circuitdigest.com/embedded">Embedded Electronics</a></li>
+	<li><a href="https://circuitdigest.com/power-electronics">Power Electronics</a></li>	
+	<li><a href="https://circuitdigest.com/analog-electronics">Analog Electronics</a></li>
+	<li><a href="https://circuitdigest.com/internet-of-things">Internet of Things</a></li>
+	<li><a href="https://circuitdigest.com/audio-electronics">Audio Electronics</a></li>
+</ul>
+              </div><!-- Footer Block -->
+            </div>
+
+            <div class="col-md-3">
+              <div class="footer-block clearfix">
+                        <!--CD_custom- footer column Three Footer Tags-->
+        <h3 class="footer-title"><span>Popular</span></h3>
+ <ul class="tags-widget">
+	<li><a href="/robotics-projects">Robotics</a></li>
+	<li><a href="/555-timer-circuits">555 Circuits</a></li>
+	<li><a href="/arduino-projects">Arduino Projects</a></li>
+	<li><a href="/simple-raspberry-pi-projects-for-beginners">Raspberry Pi Projects</a></li>
+<li><a href="https://circuitdigest.com/news">Electronics News</a></li>
+<li><a href="https://circuitdigest.com/forums">Electronics Forum</a></li>
+<li><a href="https://circuitdigest.com/calculators">Calculators</a></li>
+</ul>
+        
+              </div><!-- Footer Block -->
+            </div>
+
+            <div class="col-md-3">
+              <div class="footer-block clearfix">
+                <h3 class="footer-title">Newsletter</h3>
+                <div class="region region-footer4-newsletter">
+    <div id="block-simplenews-113" class="block block-simplenews newsletter-default">
+
+    
+  <div class="content">
+          <p>Sign Up for Latest News</p>
+  
+      <form class="simplenews-subscribe" action="/microcontroller-projects/send-data-to-web-server-using-sim900a-arduino" method="post" id="simplenews-block-form-113" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-mail">
+  <label for="edit-mail">E-mail <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-mail" name="mail" value="" size="20" maxlength="128" class="form-text required" />
+</div>
+<input type="submit" id="edit-submit--2" name="op" value="Subscribe" class="form-submit" /><input type="hidden" name="form_build_id" value="form-PrvA_MpgvzbHGI4rlBD5oaK0qASni2INj4Jww5LNVNo" />
+<input type="hidden" name="form_id" value="simplenews_block_form_113" />
+</div></form>  
+  
+  
+    </div>
+</div>
+  </div>
+              <!--CD_custom- footer column Four- second row-->
+              <hr style="border-top: 1px solid #a09d9d;">
+<p><a href="/hardware-start-up-listing" style="color: #a09d9d;">Hardware Startup?</a></p>
+              
+              </div><!-- Footer Block -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom clearfix">
+    <div class="fixed-main">
+      <div class="container">
+        <div class="mag-content">
+          <div class="row">
+            <div class="col-md-6">
+                            <!--CD_custom- footer copyright-->
+              <div>Copyright &copy; 2019&nbsp;<a href="http://circuitdigest.com/">Circuit Digest</a>. All rights reserved.</div>
+              
+            </div>
+
+            <div class="col-md-6">
+              <div class="social-icons pull-right">
+                        
+            <!--CD_custom- footer Privacy links-->
+            <div><a href="http://circuitdigest.com/privacy-policy" rel="nofollow">Privacy Policy</a>&nbsp;|<a href="https://circuitdigest.com/cookie-policy">Cookie Policy</a>&nbsp;|<a href="https://circuitdigest.com/terms-of-use">Terms of Use</a>&nbsp;|<a href="http://circuitdigest.com/contact">Contact Us</a>&nbsp;|<a href="http://circuitdigest.com/advertise">Advertise</a></div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->
+</div><!-- End Main -->
+
+<!-- Mobile Menu -->
+
+<!-- / Mobile Menu -->
+<nav id="mobile-nav" style="display:none;">
+<ul class="nav navbar-nav"><li class="first leaf"><a href="/news">News</a></li>
+<li class="leaf"><a href="/tech-articles">Articles</a></li>
+<li class="leaf"><a href="/tutorials">Tutorials</a></li>
+<li class="expanded"><a href="/electronics-projects">Projects</a><ul class="nav navbar-nav"><li class="first leaf"><a href="/555-timer-circuits">555 Timer Circuits</a></li>
+<li class="leaf"><a href="/op-amp-circuits">Op-amp Circuits</a></li>
+<li class="leaf"><a href="/audio-circuits">Audio Circuits</a></li>
+<li class="collapsed"><a href="/electronic-circuits">All Electronic Circuits</a></li>
+<li class="leaf"><a href="/arduino-projects">Arduino Projects</a></li>
+<li class="leaf"><a href="/simple-raspberry-pi-projects-for-beginners">Raspberry Pi Projects</a></li>
+<li class="leaf"><a href="/msp430-projects">MSP430 Projects</a></li>
+<li class="leaf"><a href="/esp8266-projects">ESP8266 Projects</a></li>
+<li class="leaf"><a href="/pic-microcontroller-projects">PIC Projects</a></li>
+<li class="leaf"><a href="/avr-microcontroller-projects">AVR Projects</a></li>
+<li class="leaf"><a href="/8051-microcontroller-projects">8051 Projects</a></li>
+<li class="leaf"><a href="http://circuitdigest.com/internet-of-things-iot-projects" title="">IoT Projects</a></li>
+<li class="leaf"><a href="/diy-pcb-projects">PCB Projects</a></li>
+<li class="leaf"><a href="/arduino-esp8266-projects" title="">Arduino ESP8266 Projects</a></li>
+<li class="last leaf"><a href="/microcontroller-projects" title="">All Microcontroller Projects</a></li>
+</ul></li>
+<li class="leaf"><a href="/ti-training">TI Training</a></li>
+<li class="leaf"><a href="/forums">Forum</a></li>
+<li class="last expanded"><a href="/contact" title="">Contact</a><ul class="nav navbar-nav"><li class="first last leaf"><a href="/advertise">Advertise</a></li>
+</ul></li>
+</ul></nav>
+<div id="go-top-button" class="fa fa-angle-up" title="Scroll To Top"></div>
+<div class="mobile-overlay" id="mobile-overlay"></div>  <script type="text/javascript" src="//circuitdigest.com/sites/default/files/advagg_js/js__8BFj6b2hVJGRaq8ff4m9gblXx-bpbV2jLyDtW55IppA__kTXXzBqSZI_FTStH2szZ7iEwmhuhasHOTjqGvQ7X6JY__Si4nJgwqcukDsAs0UYzgS7s-fYCWJKHDSMD2ZJhG910.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.google_analytics_uacct="UA-62912293-1";
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function(i,s,o,g,r,a,m){i.GoogleAnalyticsObject=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-62912293-1",{cookieDomain:"auto"});ga("require","displayfeatures");ga("set","anonymizeIp",true);ga("send","pageview");
+//--><!]]>
+</script>
+<script type="text/javascript" src="//circuitdigest.com/sites/default/files/advagg_js/js__v_4yJHVtE6RUu6yqhWqVJhN8cT82FDxs_Va_i0KPQGA__mFml0eTBGt4Zt75I9avty0-9fzICGI7eSL0hEU39syM__Si4nJgwqcukDsAs0UYzgS7s-fYCWJKHDSMD2ZJhG910.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var eu_cookie_compliance_cookie_name="";
+//--><!]]>
+</script>
+     
+</body>
+</html>
